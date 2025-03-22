@@ -1,0 +1,92 @@
+services:
+  # Dienst: Vaultwarden (Bitwarden-kompatibler Passwortmanager)
+  vaultwarden:
+    # Verwendetes Docker-Image
+    image: vaultwarden/server:latest
+    # Name des Containers
+    container_name: vaultwarden
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Port-Zuordnung: Host-Port 80 wird auf Container-Port 80 abgebildet
+    ports:
+      - "80:80"
+    # Umgebungsvariablen
+    environment:
+      # Zeitzone
+      - TZ=Europe/Berlin # Setzt die Zeitzone auf Europa/Berlin
+
+      # Datenbank (PostgreSQL oder SQLite)
+      - DATABASE_URL=postgres://vaultwarden:securepassword@db/vaultwarden # Nutze SQLite mit: "sqlite:///data/db.sqlite3"
+
+      # Admin-Zugang
+      - ADMIN_TOKEN=changeme # Token für das Admin-Panel (http://localhost:8080/admin)
+
+      # Web Vault Login
+      - WEB_VAULT_ENABLED=true # Ermöglicht Login über den Web Vault
+
+      # E-Mail Einstellungen
+      - SMTP_HOST=example.de
+      - SMTP_FROM=no-reply@example.de
+      - SMTP_PORT=465
+      - SMTP_SECURITY=force_tls # "starttls", "force_tls" oder "off"
+      - SMTP_USERNAME=no-reply@example.de
+      - SMTP_PASSWORD=mailpassword
+      - SMTP_TIMEOUT=15 # Sekunden
+      - EMAIL_EXPLICIT_TLS=true # Setze auf "false", wenn nicht nötig
+
+      # Sicherheitsoptionen
+      - SIGNUPS_ALLOWED=false # "false", um neue Registrierungen zu deaktivieren
+      - INVITATIONS_ALLOWED=true # "false", um Einladungen zu deaktivieren
+      - WEBSOCKET_ENABLED=true # Websocket-Unterstützung aktivieren
+
+      # Domain / URL Einstellungen
+      - DOMAIN=https://vaultwarden.example.de # Setze die öffentliche URL hier
+      - SHOW_PASSWORD_HINT=false # Verhindert, dass Nutzer Passwort-Hinweise anzeigen können
+
+      # Rate-Limiting
+      - RATE_LIMITS_ENABLED=true # Schützt vor Brute-Force-Angriffen
+      - RATE_LIMITS_SIGNUP=5.0,10.0 # Max. 5 Anfragen in 10 Sekunden bei Registrierung
+
+      # 2FA / U2F (z. B. YubiKey)
+      - YUBICO_CLIENT_ID=your_client_id
+      - YUBICO_SECRET_KEY=your_secret_key
+
+      # Backup & Performance
+      - SENDS_ALLOWED=true # Setze auf "true", um "Send" (Teilen von Dateien) zu aktivieren
+      - ATTACHMENTS_ENABLED=true # Setze auf "false", um Dateianhänge zu deaktivieren
+      - ATTACHMENTS_FOLDER=/data/attachments # Speicherort für Anhänge
+      - EMERGENCY_ACCESS_ALLOWED=true # "false", um Notfallzugang zu deaktivieren
+
+    # Volume-Zuordnung: Benanntes Volume "vaultwarden_data" wird in den Container-Pfad "/data" gemountet
+    volumes:
+      - vaultwarden_data:/data
+    # Abhängigkeiten: Dieser Dienst hängt vom "db"-Dienst ab
+    depends_on:
+      - db
+
+  # Dienst: PostgreSQL-Datenbank
+  db:
+    # Verwendetes Docker-Image
+    image: postgres:16
+    # Name des Containers
+    container_name: vaultwarden-db
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Umgebungsvariablen
+    environment:
+      # Datenbank-Benutzername
+      - POSTGRES_USER=vaultwarden
+      # Datenbank-Passwort
+      - POSTGRES_PASSWORD=securepassword # Ändern!
+      # Datenbankname
+      - POSTGRES_DB=vaultwarden
+    # Volume-Zuordnung: Benanntes Volume "postgres_data" wird in den Container-Pfad "/var/lib/postgresql/data" gemountet
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "vaultwarden_data" für Vaultwarden-Daten
+  vaultwarden_data:
+  # Benanntes Volume "postgres_data" für PostgreSQL-Daten
+  postgres_data:

@@ -1,0 +1,23 @@
+services:
+  # Dienst: Uptime Kuma (Uptime-Überwachung)
+  uptime-kuma:
+    # Verwendetes Docker-Image
+    image: louislam/uptime-kuma:latest
+    # Name des Containers
+    container_name: uptime-kuma
+    # Volume-Zuordnung
+    volumes:
+      # Benanntes Volume "uptime-kuma-data" wird in den Container-Pfad "/app/data" gemountet (für persistente Daten)
+      - uptime-kuma-data:/app/data
+      # Mounten des Docker-Sockets des Hosts (ermöglicht Uptime Kuma, Docker-Container zu überwachen)
+      - /var/run/docker.sock:/var/run/docker.sock
+    # Port-Zuordnung: Host-Port 3001 wird auf Container-Port 3001 abgebildet (Weboberfläche)
+    ports:
+      - "3001:3001" # Port für die Weboberfläche
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "uptime-kuma-data" für Uptime Kuma-Daten
+  uptime-kuma-data:

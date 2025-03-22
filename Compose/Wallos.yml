@@ -1,0 +1,25 @@
+services:
+  # Dienst: Wallos (Webanwendung)
+  wallos:
+    # Name des Containers
+    container_name: wallos
+    # Verwendetes Docker-Image
+    image: bellamy/wallos:latest
+    # Port-Zuordnung: Host-Port 80 wird auf Container-Port 80 (TCP) abgebildet
+    ports:
+      - "80:80/tcp"
+    # Volume-Zuordnung
+    volumes:
+      # Benanntes Volume "db" wird in den Container-Pfad "/var/www/html/db" gemountet (für Datenbankdaten)
+      - db:/var/www/html/db
+      # Benanntes Volume "logos" wird in den Container-Pfad "/var/www/html/images/uploads/logos" gemountet (für Logo-Uploads)
+      - logos:/var/www/html/images/uploads/logos
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "db" für Wallos-Datenbankdaten
+  db:
+  # Benanntes Volume "logos" für Wallos-Logo-Uploads
+  logos:
