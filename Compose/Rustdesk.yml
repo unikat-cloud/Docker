@@ -1,0 +1,52 @@
+services:
+  # Dienst: RustDesk-HBBS (ID-Server)
+  hbbs:
+    # Verwendetes Docker-Image
+    image: rustdesk/rustdesk-server:latest
+    # Name des Containers
+    container_name: rustdesk_hbbs
+    # Port-Zuordnung: Host-Ports werden auf Container-Ports abgebildet
+    ports:
+      # TCP-Port für HBBS
+      - "21115:21115"
+      # TCP- und UDP-Port für HBBS
+      - "21116:21116"
+      - "21116:21116/udp"
+      # TCP-Port für HBBS
+      - "21118:21118"
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Volume-Zuordnung: Benanntes Volume "data" wird in den Container-Pfad "/root" gemountet
+    volumes:
+      - data:/root
+    # Umgebungsvariablen
+    environment:
+      # Relay-Server-Hostname
+      - RELAY_SERVER=rustdesk_hbbr
+    # Befehl: Ausführen des HBBS-Servers mit Angabe des Relay-Servers
+    command: hbbs -r rustdesk_hbbr
+
+  # Dienst: RustDesk-HBBR (Relay-Server)
+  hbbr:
+    # Verwendetes Docker-Image
+    image: rustdesk/rustdesk-server:latest
+    # Name des Containers
+    container_name: rustdesk_hbbr
+    # Port-Zuordnung: Host-Ports werden auf Container-Ports abgebildet
+    ports:
+      # TCP-Port für HBBR
+      - "21117:21117"
+      # TCP-Port für HBBR
+      - "21119:21119"
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Volume-Zuordnung: Benanntes Volume "data" wird in den Container-Pfad "/root" gemountet
+    volumes:
+      - data:/root
+    # Befehl: Ausführen des HBBR-Servers
+    command: hbbr
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "data" für RustDesk-Serverdaten
+  data:

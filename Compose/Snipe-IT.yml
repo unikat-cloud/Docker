@@ -1,0 +1,91 @@
+services:
+  # Dienst: MariaDB-Datenbank
+  db:
+    # Verwendetes Docker-Image (MariaDB 11.4 - LTS)
+    image: mariadb:11.4-noble #LTS Long Time Support Until May 29, 2029.
+    # Name des Containers
+    container_name: SNIPE-IT-DB
+    # Sicherheitsoptionen
+    security_opt:
+      # Deaktiviert neue Privilegien
+      - no-new-privileges:false
+    # Hostname des Containers
+    hostname: db
+    # Volume-Zuordnung: Benanntes Volume "db" wird in den Container-Pfad "/var/lib/mysql" gemountet (Lese-/Schreibzugriff)
+    volumes:
+      - db:/var/lib/mysql:rw
+    # Umgebungsvariablen
+    environment:
+      # MariaDB-Root-Passwort
+      - MYSQL_ROOT_PASSWORD=changeme1
+      # MariaDB-Benutzername
+      - MYSQL_USER=snipe
+      # MariaDB-Benutzerpasswort
+      - MYSQL_PASSWORD=changeme2
+      # MariaDB-Datenbankname
+      - MYSQL_DATABASE=snipe
+      # Zeitzone
+      - TZ=Europe/Berlin
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+
+  # Dienst: Snipe-IT-Anwendung
+  snipeit:
+    # Verwendetes Docker-Image (LinuxServer.io Snipe-IT)
+    image: lscr.io/linuxserver/snipe-it:latest
+    # Name des Containers
+    container_name: SNIPE-IT
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Abhängigkeiten: Dieser Dienst hängt vom "db"-Dienst ab
+    depends_on:
+      - db
+    # Volume-Zuordnung: Benanntes Volume "config" wird in den Container-Pfad "/config" gemountet (Lese-/Schreibzugriff)
+    volumes:
+      - config:/config:rw
+    # Umgebungsvariablen
+    environment:
+      # Zeitzone
+      - TZ=Europe/Berlin
+      # Anwendungs-URL
+      - APP_URL=https://snipeit.example.de
+      # Nginx-Anwendungs-URL
+      - NGINX_APP_URL=https://nginx.example.de
+      # Anwendungs-Key (Base64-kodiert)
+      - APP_KEY=base64-key
+      # Erzwingt TLS-Verwendung
+      - APP_FORCE_TLS=true
+      # Datenbank-Host (der Name des Datenbank-Dienstes)
+      - MYSQL_PORT_3306_TCP_ADDR=db
+      # Datenbank-Port
+      - MYSQL_PORT_3306_TCP_PORT=3306
+      # Datenbankname
+      - MYSQL_DATABASE=snipe
+      # Datenbank-Benutzername
+      - MYSQL_USER=snipe
+      # Datenbank-Benutzerpasswort
+      - MYSQL_PASSWORD=changeme2
+      # Mail-Server-Host
+      - MAIL_PORT_587_TCP_ADDR=example.de
+      # Mail-Server-Port
+      - MAIL_PORT_587_TCP_PORT=465
+      # Mail-Absenderadresse
+      - MAIL_ENV_FROM_ADDR=no-reply@example.de
+      # Mail-Absendername
+      - MAIL_ENV_FROM_NAME=no-reply@example.de
+      # Mail-Verschlüsselung
+      - MAIL_ENV_ENCRYPTION=TLS
+      # Mail-Benutzername
+      - MAIL_ENV_USERNAME=no-reply@example.de
+      # Mail-Passwort
+      - MAIL_ENV_PASSWORD=mailpassword
+    # Port-Zuordnung: Host-Port 80 wird auf Container-Port 80 abgebildet
+    ports:
+      - 80:80
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "db" für MariaDB-Daten
+  db:
+  # Benanntes Volume "config" für Snipe-IT-Konfiguration
+  config:

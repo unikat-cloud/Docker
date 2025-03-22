@@ -1,0 +1,24 @@
+volumes:
+  pihole: # Definition des benannten Volumes für die Pi-hole-Konfiguration
+  etc-dnsmasq.d: # Definition des benannten Volumes für zusätzliche dnsmasq-Konfigurationen
+
+services:
+  app: # Definition des Pi-hole-Services
+    container_name: pihole # Der Name des Containers (wie er in Portainer angezeigt wird)
+    image: pihole/pihole:latest # Das zu verwendende Docker-Image (offizielles Pi-hole-Image)
+    hostname: Pihole # Hostname für die Pi-hole-Weboberfläche
+    ports: # Port-Mappings zwischen Host und Container
+      - "53:53/tcp" # Port 53 auf dem Host wird auf Port 53 im Container gemappt (TCP)
+      - "53:53/udp" # Port 53 auf dem Host wird auf Port 53 im Container gemappt (UDP)
+      - "50004:80/tcp" # Port 50004 auf dem Host wird auf Port 80 im Container gemappt (Weboberfläche)
+    # - "67:67/udp" # Wird nur benötigt, wenn Pi-hole als DHCP-Server verwendet wird
+    environment: # Umgebungsvariablen für den Container
+      TZ: 'Europe/Berlin' # Zeitzone für den Container
+      WEBPASSWORD: 'd%5@672^@%zOf$^y132&giQ15Q%C%6@6' # Passwort für die Pi-hole-Weboberfläche (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+      PIHOLE_DNS_: '9.9.9.9;149.112.112.112' # Upstream-DNS-Server (Quad9)
+    volumes: # Volume-Mappings zwischen Host und Container
+      - pihole:/etc/pihole # Bindet das 'pihole' Volume an das Konfigurationsverzeichnis von Pi-hole
+      - etc-dnsmasq.d:/etc/dnsmasq.d # Bindet das 'etc-dnsmasq.d' Volume an das Verzeichnis für zusätzliche dnsmasq-Konfigurationen
+    # cap_add: # Wird nur benötigt, wenn Pi-hole als DHCP-Server verwendet wird
+    # - NET_ADMIN # Wird nur benötigt, wenn Pi-hole als DHCP-Server verwendet wird
+    restart: unless-stopped # Neustart-Richtlinie: Container wird automatisch neu gestartet, außer wenn er manuell gestoppt wurde

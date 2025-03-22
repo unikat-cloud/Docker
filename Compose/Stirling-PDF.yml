@@ -1,0 +1,49 @@
+services:
+  # Dienst: Stirling-PDF-Anwendung
+  stirling-pdf:
+    # Verwendetes Docker-Image
+    image: stirlingtools/stirling-pdf:latest
+    # Port-Zuordnung: Host-Port 8080 wird auf Container-Port 8080 abgebildet
+    ports:
+      - '8080:8080'
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Volume-Zuordnung
+    volumes:
+      # Benanntes Volume "trainingData" wird in den Container-Pfad "/usr/share/tessdata" gemountet (für zusätzliche OCR-Sprachen erforderlich)
+      - trainingData:/usr/share/tessdata
+      # Benanntes Volume "extraConfigs" wird in den Container-Pfad "/configs" gemountet
+      - extraConfigs:/configs
+      # Benanntes Volume "customFiles" wird in den Container-Pfad "/customFiles/" gemountet
+      - customFiles:/customFiles/
+      # Benanntes Volume "logs" wird in den Container-Pfad "/logs/" gemountet
+      - logs:/logs/
+      # Benanntes Volume "pipeline" wird in den Container-Pfad "/pipeline/" gemountet
+      - pipeline:/pipeline/
+    # Umgebungsvariablen
+    environment:
+      # Aktiviert die Sicherheit in Docker
+      - DOCKER_ENABLE_SECURITY=true
+      # Aktiviert die Anmeldung
+      - SECURITY_ENABLE_LOGIN=true
+      # Sprachcodes für OCR (Englisch UK)
+      - LANGS=en_GB
+      # Name der Anwendung in der Benutzeroberfläche
+      - UI_APP_NAME="Name" PDF
+      # Beschreibung auf der Startseite der Benutzeroberfläche
+      - UI_HOME_DESCRIPTION=Your locally hosted one-stop-shop for all your PDF needs.
+      # Name in der Navigationsleiste der Benutzeroberfläche
+      - UI_APP_NAVBAR_NAME="Name" PDF
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "trainingData" für OCR-Trainingsdaten
+  trainingData:
+  # Benanntes Volume "extraConfigs" für zusätzliche Konfigurationen
+  extraConfigs:
+  # Benanntes Volume "customFiles" für benutzerdefinierte Dateien
+  customFiles:
+  # Benanntes Volume "logs" für Protokolldateien
+  logs:
+  # Benanntes Volume "pipeline" für Pipeline-Daten
+  pipeline:

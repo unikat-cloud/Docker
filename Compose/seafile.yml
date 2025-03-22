@@ -1,0 +1,47 @@
+services:
+  db: # Definition des MariaDB-Services (Datenbank für Seafile)
+    image: mariadb:10.11 # Das zu verwendende Docker-Image (MariaDB 10.11)
+    container_name: seafile-mysql # Der Name des Containers
+    environment: # Umgebungsvariablen für den Container
+      - MYSQL_ROOT_PASSWORD=db_dev # Erforderlich, setzt das Root-Passwort des MySQL-Dienstes (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+      - MYSQL_LOG_CONSOLE=true # Aktiviert das Logging von MySQL-Meldungen in der Konsole
+      - MARIADB_AUTO_UPGRADE=1 # Aktiviert automatische MariaDB-Upgrades
+    volumes: # Volume-Mapping zwischen Host und Container
+      - seafile-db:/var/lib/mysql # Erforderlich, gibt den Pfad zum persistenten Speicher der MySQL-Daten an
+    networks: # Netzwerke, zu denen der Container gehört
+      - seafile-net
+
+  memcached: # Definition des Memcached-Services (Cache-Server für Seafile)
+    image: memcached:1.6.18 # Das zu verwendende Docker-Image (Memcached 1.6.18)
+    container_name: seafile-memcached # Der Name des Containers
+    entrypoint: memcached -m 256 # Startbefehl für Memcached, weist 256 MB Arbeitsspeicher zu
+    networks: # Netzwerke, zu denen der Container gehört
+      - seafile-net
+
+  seafile: # Definition des Seafile-Services (Datei-Synchronisations- und Freigabe-Server)
+    image: seafileltd/seafile-mc:11.0-latest # Das zu verwendende Docker-Image (Seafile 11.0)
+    container_name: seafile # Der Name des Containers
+    ports: # Port-Mappings zwischen Host und Container
+      - "80:80" # Port 80 auf dem Host wird auf Port 80 im Container gemappt (HTTP)
+      - "443:443" # Wenn HTTPS aktiviert ist, Kommentar entfernen (HTTPS)
+    volumes: # Volume-Mapping zwischen Host und Container
+      - seafile-data:/shared # Erforderlich, gibt den Pfad zum persistenten Speicher der Seafile-Daten an
+    environment: # Umgebungsvariablen für den Container
+      - DB_HOST=db # Hostname der Datenbank (MariaDB-Service)
+      - DB_ROOT_PASSWD=changeme # Erforderlich, das Passwort des Root-Benutzers des MySQL-Dienstes (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+      - SEAFILE_ADMIN_EMAIL=seafile@example.de # Gibt den Seafile-Admin-Benutzer an, Standard ist 'me@example.com'
+      - SEAFILE_ADMIN_PASSWORD=changeme2 # Gibt das Seafile-Admin-Passwort an, Standard ist 'asecret' (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+      - SEAFILE_SERVER_LETSENCRYPT=false # Gibt an, ob HTTPS verwendet werden soll oder nicht
+      - SEAFILE_SERVER_HOSTNAME=seafile.example.de # Gibt den Hostnamen an, wenn HTTPS aktiviert ist
+    depends_on: # Abhängigkeiten von anderen Services
+      - db # Abhängig vom MariaDB-Service
+      - memcached # Abhängig vom Memcached-Service
+    networks: # Netzwerke, zu denen der Container gehört
+      - seafile-net
+
+volumes: # Definition der benannten Volumes
+  seafile-db: # Volume für die Seafile-Datenbank
+  seafile-data: # Volume für die Seafile-Daten
+
+networks: # Definition der benannten Netzwerke
+  seafile-net: # Netzwerk für die Seafile-Services
