@@ -1,0 +1,38 @@
+services:
+  # Dienst: Linkstack-Anwendung
+  linkstack:
+    # Name des Containers
+    container_name: 'linkstack'
+    # Hostname des Containers
+    hostname: 'linkstack'
+    # Verwendetes Docker-Image (neueste Version)
+    image: 'linkstackorg/linkstack:latest'
+    # Port-Zuordnung: Host-Port 443 wird auf Container-Port 443 abgebildet (HTTPS)
+    ports:
+      - "443:443"
+    # Umgebungsvariablen
+    environment:
+      # Zeitzone
+      TZ: 'Europe/Berlin'
+      # Server-Administrator-E-Mail-Adresse
+      SERVER_ADMIN: 'linkstack@example.de'
+      # HTTP-Server-Name
+      HTTP_SERVER_NAME: 'example.de'
+      # HTTPS-Server-Name
+      HTTPS_SERVER_NAME: 'example.de'
+      # Log-Level (Informationsmeldungen)
+      LOG_LEVEL: 'info'
+      # PHP-Speicherlimit
+      PHP_MEMORY_LIMIT: '1024M'
+      # Maximale Upload-Dateigröße
+      UPLOAD_MAX_FILESIZE: '10M'
+    # Volume-Zuordnung: Benanntes Volume "httpdocs" wird in den Container-Pfad "/htdocs" gemountet
+    volumes:
+      - 'httpdocs:/htdocs'
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "httpdocs" für die Linkstack-Dateien
+  httpdocs:

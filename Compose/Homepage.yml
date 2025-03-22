@@ -1,0 +1,16 @@
+volumes:
+  config: # Definition des benannten Volumes für die Homepage-Konfiguration
+
+services:
+  homepage: # Definition des Homepage-Services (Dashboard-Anwendung)
+    image: ghcr.io/gethomepage/homepage:latest # Das zu verwendende Docker-Image (Homepage)
+    container_name: homepage # Der Name des Containers
+    environment: # Umgebungsvariablen für den Container
+      PUID: 1000 # Optionale Benutzer-ID (User ID) für den Container (Berechtigungen)
+      PGID: 1000 # Optionale Gruppen-ID (Group ID) für den Container (Berechtigungen)
+    ports: # Port-Mapping zwischen Host und Container
+      - 3000:3000 # Port 3000 auf dem Host wird auf Port 3000 im Container gemappt
+    volumes: # Volume-Mappings zwischen Host und Container
+      - config:/app/config # Bindet das 'config' Volume an das Konfigurationsverzeichnis von Homepage
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Optional, bindet den Docker-Socket im Read-Only-Modus für Docker-Integrationen
+    restart: unless-stopped # Neustart-Richtlinie: Container wird automatisch neu gestartet, außer wenn er manuell gestoppt wurde

@@ -1,0 +1,69 @@
+services:
+  # Dienst: n8n (Automatisierungsplattform)
+  n8n:
+    # Verwendetes Docker-Image
+    image: n8nio/n8n
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Port-Zuordnung: Host-Port 5678 wird auf Container-Port 5678 abgebildet
+    ports:
+      - "5678:5678"
+    # Umgebungsvariablen
+    environment:
+      # Zeitzone
+      - TZ=Europe/Berlin
+      # Hostname für n8n
+      - N8N_HOST=n8n.example.de
+      # Aktiviert Runner für n8n
+      - N8N_RUNNERS_ENABLED=true
+      # Port für n8n
+      - N8N_PORT=5678
+      # Protokoll für n8n
+      - N8N_PROTOCOL=https
+      # Webhook-URL für n8n
+      - WEBHOOK_URL=https://n8n.example.de/
+      # Datenbanktyp (PostgreSQL)
+      - DB_TYPE=postgresdb
+      # Datenbankname
+      - DB_POSTGRESDB_DATABASE=n8n
+      # Datenbank-Host
+      - DB_POSTGRESDB_HOST=postgres
+      # Datenbank-Port
+      - DB_POSTGRESDB_PORT=5432
+      # Datenbank-Benutzername
+      - DB_POSTGRESDB_USER=n8n
+      # Datenbank-Passwort
+      - DB_POSTGRESDB_PASSWORD=changeme
+    # Volume-Zuordnung: Benanntes Volume "n8n_data" wird in den Container-Pfad "/home/node/.n8n" gemountet
+    volumes:
+      - n8n_data:/home/node/.n8n
+    # Abhängigkeiten: Dieser Dienst hängt vom "postgres"-Dienst ab
+    depends_on:
+      - postgres
+
+  # Dienst: PostgreSQL-Datenbank
+  postgres:
+    # Verwendetes Docker-Image
+    image: postgres:13
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Umgebungsvariablen
+    environment:
+      # Zeitzone
+      TZ: Europe/Berlin
+      # Datenbankname
+      POSTGRES_DB: n8n
+      # Datenbank-Benutzername
+      POSTGRES_USER: n8n
+      # Datenbank-Passwort
+      POSTGRES_PASSWORD: changeme
+    # Volume-Zuordnung: Benanntes Volume "postgres_data" wird in den Container-Pfad "/var/lib/postgresql/data" gemountet
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "n8n_data" für n8n-Daten
+  n8n_data:
+  # Benanntes Volume "postgres_data" für PostgreSQL-Daten
+  postgres_data:

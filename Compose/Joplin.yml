@@ -1,0 +1,71 @@
+services:
+  # Dienst: Datenbank (PostgreSQL)
+  db:
+    # Verwendetes Docker-Image
+    image: postgres:15
+    # Volume-Zuordnung: Benanntes Volume "joplindb" wird in den Container-Pfad "/var/lib/postgresql/data" gemountet
+    volumes:
+      - joplindb:/var/lib/postgresql/data
+    # Port-Zuordnung: Host-Port 5432 wird auf Container-Port 5432 abgebildet
+    ports:
+      - 5432:5432
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Umgebungsvariablen
+    environment:
+      # PostgreSQL-Passwort
+      - POSTGRES_PASSWORD=changeme
+      # PostgreSQL-Benutzername
+      - POSTGRES_USER=postgres
+      # PostgreSQL-Datenbankname
+      - POSTGRES_DB=joplin
+
+  # Dienst: Joplin-Anwendungsserver
+  app:
+    # Verwendetes Docker-Image
+    image: joplin/server:latest
+    # Abhängigkeiten: Dieser Dienst hängt vom "db"-Dienst ab
+    depends_on:
+      - db
+    # Port-Zuordnung: Host-Port 22300 wird auf Container-Port 22300 abgebildet
+    ports:
+      - 22300:22300
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Umgebungsvariablen
+    environment:
+      # Port der Joplin-Anwendung
+      - APP_PORT=22300
+      # Basis-URL der Joplin-Anwendung
+      - APP_BASE_URL=https://example.de
+      # Datenbank-Client (PostgreSQL)
+      - DB_CLIENT=pg
+      # PostgreSQL-Passwort
+      - POSTGRES_PASSWORD=changeme
+      # PostgreSQL-Datenbankname
+      - POSTGRES_DATABASE=joplin
+      # PostgreSQL-Benutzername
+      - POSTGRES_USER=postgres
+      # PostgreSQL-Port
+      - POSTGRES_PORT=5432
+      # PostgreSQL-Host (der Name des Datenbank-Dienstes)
+      - POSTGRES_HOST=db
+      # E-Mail-Funktionalität aktiviert (1 = aktiviert)
+      - MAILER_ENABLED=1
+      # E-Mail-Server-Host
+      - MAILER_HOST=example.de
+      # E-Mail-Server-Sicherheit (TLS)
+      - MAILER_SECURITY=tls
+      # E-Mail-Server-Benutzername
+      - MAILER_AUTH_USER=no-reply@example.de
+      # E-Mail-Server-Passwort
+      - MAILER_AUTH_PASSWORD=changememail
+      # Name des Absenders für E-Mails
+      - MAILER_NOREPLY_NAME=Joplin-Selfhosted
+      # E-Mail-Adresse des Absenders für E-Mails
+      - MAILER_NOREPLY_EMAIL=no-reply@example.de
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "joplindb" für die PostgreSQL-Daten
+  joplindb:
