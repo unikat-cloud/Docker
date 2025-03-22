@@ -1,4 +1,4 @@
-# AdGuard: Mehr als ein Werbeblocker
+# AdGuard: Mehr als nur ein Werbeblocker
 
 AdGuard ist eine vielseitige Software-Suite, die entwickelt wurde, um Ihre Online-Erfahrung zu verbessern, indem sie Werbung blockiert, Ihre Privatsphäre schützt und Sie vor Online-Bedrohungen schützt. Es ist als Browsererweiterung, Desktop-Anwendung und mobile App verfügbar und bietet eine Reihe von Funktionen, die es zu einem umfassenden Tool für Online-Sicherheit und Datenschutz machen.
 
