@@ -1,0 +1,109 @@
+services:
+  # Dienst: Redis-Broker
+  broker:
+    # Verwendetes Docker-Image
+    image: docker.io/library/redis:7
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Volume-Zuordnung: Benanntes Volume "redisdata" wird in den Container-Pfad "/data" gemountet
+    volumes:
+      - redisdata:/data
+
+  # Dienst: PostgreSQL-Datenbank
+  db:
+    # Verwendetes Docker-Image
+    image: docker.io/library/postgres:16
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Volume-Zuordnung: Benanntes Volume "pgdata" wird in den Container-Pfad "/var/lib/postgresql/data" gemountet
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Umgebungsvariablen
+    environment:
+      # Datenbankname
+      POSTGRES_DB: paperless
+      # Datenbank-Benutzername
+      POSTGRES_USER: paperless
+      # Datenbank-Passwort
+      POSTGRES_PASSWORD: paperless
+
+  # Dienst: Paperless-ngx-Webserver
+  webserver:
+    # Verwendetes Docker-Image
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Abhängigkeiten: Dieser Dienst hängt von den "db" und "broker" Diensten ab
+    depends_on:
+      - db
+      - broker
+    # Port-Zuordnung: Host-Port 8000 wird auf Container-Port 8000 abgebildet
+    ports:
+      - "8000:8000"
+    # Volume-Zuordnung
+    volumes:
+      # Benanntes Volume "data" wird in den Container-Pfad "/usr/src/paperless/data" gemountet
+      - data:/usr/src/paperless/data
+      # Benanntes Volume "media" wird in den Container-Pfad "/usr/src/paperless/media" gemountet
+      - media:/usr/src/paperless/media
+      # Lokales Verzeichnis "./export" wird in den Container-Pfad "/usr/src/paperless/export" gemountet
+      - ./export:/usr/src/paperless/export
+      # Lokales Verzeichnis "./consume" wird in den Container-Pfad "/usr/src/paperless/consume" gemountet
+      - ./consume:/usr/src/paperless/consume
+    # Umgebungsvariablen
+    environment:
+      # Redis-Verbindungs-URL
+      PAPERLESS_REDIS: redis://broker:6379
+      # Datenbank-Host
+      PAPERLESS_DBHOST: db
+      # UID des Benutzers, der Paperless im Container ausführt
+      USERMAP_UID: 1000
+      # GID des Benutzers, der Paperless im Container ausführt
+      USERMAP_GID: 1000
+      # Zusätzliche Sprachen für Texterkennung (auskommentiertes Beispiel)
+      # PAPERLESS_OCR_LANGUAGES: tur ces
+      # Geheimer Schlüssel für Paperless (wird für öffentliche Verfügbarkeit empfohlen)
+      PAPERLESS_SECRET_KEY: q543atgzw5777774eizkfat24587o9gkitfju
+      # Zeitzone für Paperless-Container
+      PAPERLESS_TIME_ZONE: Europe/Berlin
+      # Standardsprache für OCR
+      PAPERLESS_OCR_LANGUAGE: deu
+      # Paperless-URL
+      PAPERLESS_URL: https://paperless.example.de
+      # Erlaubte Hosts für Paperless
+      PAPERLESS_ALLOWED_HOSTS: paperless.example.de,localhost
+
+  # Dienst: Paperless-AI
+  paperless-ai:
+    # Verwendetes Docker-Image
+    image: clusterzx/paperless-ai
+    # Name des Containers
+    container_name: paperless-ai
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Deaktiviert alle Capabilities
+    cap_drop:
+      - ALL
+    # Sicherheitsoptionen
+    security_opt:
+      # Deaktiviert neue Privilegien
+      - no-new-privileges=true
+    # Port-Zuordnung: Host-Port 3000 wird auf Container-Port 3000 abgebildet
+    ports:
+      - 3000:3000
+    # Volume-Zuordnung: Benanntes Volume "paperless-ai_data" wird in den Container-Pfad "/app/data" gemountet
+    volumes:
+      - paperless-ai_data:/app/data
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "data" für Paperless-Daten
+  data:
+  # Benanntes Volume "media" für Paperless-Mediendaten
+  media:
+  # Benanntes Volume "pgdata" für PostgreSQL-Daten
+  pgdata:
+  # Benanntes Volume "redisdata" für Redis-Daten
+  redisdata:
+  # Benanntes Volume "paperless-ai_data" für Paperless-AI-Daten
+  paperless-ai_data:

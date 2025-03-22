@@ -1,0 +1,85 @@
+services:
+  # Dienst: Datenbank (PostgreSQL)
+  db:
+    # Verwendetes Docker-Image
+    image: docker.io/library/postgres:17
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Volume-Zuordnung: Benanntes Volume "db" wird in den Container-Pfad "/var/lib/postgresql/data" gemountet
+    volumes:
+      - db:/var/lib/postgresql/data
+    # Umgebungsvariablen
+    environment:
+      # Datenbankname
+      - POSTGRES_DB=nextcloud
+      # Datenbank-Benutzername
+      - POSTGRES_USER=nextcloud
+      # Datenbank-Passwort
+      - POSTGRES_PASSWORD=changeme
+      # Zeitzone
+      - TZ=Europe/Berlin
+
+  # Dienst: Redis (Cache-Speicher)
+  redis:
+    # Verwendetes Docker-Image
+    image: docker.io/library/redis:latest
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Volume-Zuordnung: Benanntes Volume "redis" wird in den Container-Pfad "/data" gemountet
+    volumes:
+      - redis:/data
+
+  # Dienst: Nextcloud-Anwendung
+  app:
+    # Verwendetes Docker-Image
+    image: docker.io/library/nextcloud:latest
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Port-Zuordnung: Host-Port 80 wird auf Container-Port 80 abgebildet
+    ports:
+      - 80:80
+    # Volume-Zuordnung: Benanntes Volume "nextcloud" wird in den Container-Pfad "/var/www/html" gemountet
+    volumes:
+      - nextcloud:/var/www/html
+    # Umgebungsvariablen
+    environment:
+      # Datenbank-Host (der Name des Datenbank-Dienstes)
+      - POSTGRES_HOST=db
+      # Datenbankname
+      - POSTGRES_DB=nextcloud
+      # Datenbank-Benutzername
+      - POSTGRES_USER=nextcloud
+      # Datenbank-Passwort
+      - POSTGRES_PASSWORD=changeme
+      # Redis-Host (der Name des Redis-Dienstes)
+      - REDIS_HOST=redis
+      # Zeitzone
+      - TZ=Europe/Berlin
+    # Abhängigkeiten: Dieser Dienst hängt von den "db" und "redis" Diensten ab
+    depends_on:
+      - db
+      - redis
+
+  # Dienst: Nextcloud-Cronjob
+  cron:
+    # Verwendetes Docker-Image
+    image: docker.io/library/nextcloud:latest
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Volume-Zuordnung: Benanntes Volume "nextcloud" wird in den Container-Pfad "/var/www/html" gemountet
+    volumes:
+      - nextcloud:/var/www/html
+    # Entrypoint: Ausführen des Cron-Skripts
+    entrypoint: /cron.sh
+    # Abhängigkeiten: Dieser Dienst hängt vom "app" Dienst ab
+    depends_on:
+      - app
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "db" für PostgreSQL-Daten
+  db:
+  # Benanntes Volume "nextcloud" für Nextcloud-Daten
+  nextcloud:
+  # Benanntes Volume "redis" für Redis-Daten
+  redis:

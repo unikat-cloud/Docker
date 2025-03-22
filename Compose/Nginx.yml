@@ -1,0 +1,39 @@
+services:
+  # Dienst: Nginx Proxy Manager Anwendung
+  app:
+    # Verwendetes Docker-Image
+    image: 'jc21/nginx-proxy-manager:latest'
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Port-Zuordnung: Host-Ports werden auf Container-Ports abgebildet
+    ports:
+      # Öffentlicher HTTP-Port
+      - '80:80'
+      # Öffentlicher HTTPS-Port
+      - '443:443'
+      # Admin-Web-Port
+      - '81:81'
+      # Zusätzliche Stream-Ports (auskommentiertes Beispiel)
+      # - '21:21' # FTP
+
+    # Umgebungsvariablen
+    environment:
+      # Optionale Anpassung des Speicherorts der SQLite-Datenbankdatei (auskommentiert)
+      # DB_SQLITE_FILE: "/data/database.sqlite"
+
+      # Deaktiviert IPv6, falls es auf dem Host nicht aktiviert ist
+      DISABLE_IPV6: 'true'
+
+    # Volume-Zuordnung
+    volumes:
+      # Benanntes Volume "data" wird in den Container-Pfad "/data" gemountet
+      - data:/data
+      # Benanntes Volume "letsencrypt" wird in den Container-Pfad "/etc/letsencrypt" gemountet
+      - letsencrypt:/etc/letsencrypt
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "data" für Anwendungsdaten
+  data:
+  # Benanntes Volume "letsencrypt" für Let's Encrypt-Zertifikate
+  letsencrypt:

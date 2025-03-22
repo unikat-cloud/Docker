@@ -1,0 +1,19 @@
+services:
+  openvpn-as:
+    image: openvpn/openvpn-as # Das Image, das verwendet werden soll
+    container_name: openvpn-as # Der Name des Containers
+    devices:
+      - /dev/net/tun:/dev/net/tun # Bindet das /dev/net/tun-Gerät in den Container ein
+    cap_add:
+      - NET_ADMIN # Fügt die NET_ADMIN-Capability hinzu (erforderlich für Netzwerkadministration)
+      - MKNOD # Fügt die MKNOD-Capability hinzu (erforderlich zum Erstellen von Gerätedateien)
+    ports:
+      - 943:943 # Mappt Port 943 des Hosts auf Port 943 des Containers (Web-UI)
+      - 443:443 # Mappt Port 443 des Hosts auf Port 443 des Containers (HTTPS)
+      - 1194:1194/udp # Mappt Port 1194 des Hosts auf Port 1194 des Containers (OpenVPN-UDP)
+    volumes:
+      - data:/openvpn # Bindet das Volume 'data' in den Containerpfad /openvpn ein
+    restart: unless-stopped # Startet den Container automatisch neu, es sei denn, er wurde explizit gestoppt
+
+volumes:
+  data: # Definiert das Volume 'data'
