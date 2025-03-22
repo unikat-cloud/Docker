@@ -1,0 +1,16 @@
+services:
+  heimdall: # Definition des Heimdall-Services (Application Dashboard / Startseite)
+    image: lscr.io/linuxserver/heimdall:latest # Das zu verwendende Docker-Image (LinuxServer.io Heimdall)
+    container_name: heimdall # Der Name des Containers
+    environment: # Umgebungsvariablen für den Container
+      - PUID=1000 # Benutzer-ID für den Container (Berechtigungen)
+      - PGID=1000 # Gruppen-ID für den Container (Berechtigungen)
+    volumes: # Volume-Mapping zwischen Host und Container
+      - heimdall:/config # Bindet das 'heimdall' Volume an das Konfigurationsverzeichnis von Heimdall
+    ports: # Port-Mappings zwischen Host und Container
+      - "80:80" # Port 80 auf dem Host wird auf Port 80 im Container gemappt (HTTP)
+      - "443:443" # Port 443 auf dem Host wird auf Port 443 im Container gemappt (HTTPS)
+    restart: unless-stopped # Neustart-Richtlinie: Container wird automatisch neu gestartet, außer wenn er manuell gestoppt wurde
+
+volumes: # Definition der benannten Volumes
+  heimdall: {} # Volume für die Heimdall-Konfiguration

@@ -1,0 +1,18 @@
+services:
+  freshrss: # Definition des FreshRSS-Services (RSS-Feed-Aggregator)
+    image: lscr.io/linuxserver/freshrss:latest # Das zu verwendende Docker-Image (LinuxServer.io FreshRSS)
+    container_name: freshrss # Der Name des Containers
+    volumes: # Volume-Mapping zwischen Host und Container
+      - config:/config # Bindet das 'config' Volume an das Konfigurationsverzeichnis von FreshRSS
+    ports: # Port-Mapping zwischen Host und Container
+      - 443:443 # Port 443 auf dem Host wird auf Port 443 im Container gemappt (HTTPS)
+    restart: unless-stopped # Neustart-Richtlinie: Container wird automatisch neu gestartet, außer wenn er manuell gestoppt wurde
+    healthcheck: # Definition des Healthchecks für den Container
+      test: "curl -f http://localhost/health" # Befehl zum Ausführen des Healthchecks
+      interval: 1m30s # Intervall zwischen den Healthchecks (1 Minute 30 Sekunden)
+      timeout: 5s # Timeout für den Healthcheck (5 Sekunden)
+      retries: 2 # Anzahl der Wiederholungen bei fehlgeschlagenem Healthcheck (2)
+      start_period: 10s # Startperiode, bevor Healthchecks beginnen (10 Sekunden)
+
+volumes: # Definition der benannten Volumes
+  config: # Volume für die FreshRSS-Konfiguration

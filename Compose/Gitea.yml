@@ -1,0 +1,112 @@
+services:
+  # Dienst: Gitea-Service
+  gitea:
+    # Verwendetes Gitea-Image (neueste Version)
+    image: gitea/gitea:latest
+    # Name des Containers
+    container_name: gitea
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Umgebungsvariablen
+    environment:
+      # Allgemeine Konfiguration
+      - USER_UID=BENUTZER_UID # UID des Gitea-Benutzers
+      - USER_GID=BENUTZER_GID # GID des Gitea-Benutzers
+      - APP_NAME=ANWENDUNGS_NAME # Name der Anwendung
+      - RUN_MODE=prod # Betriebsmodus (prod für Produktion)
+
+      # Datenbank-Konfiguration (PostgreSQL)
+      - DB_TYPE=postgres
+      - DB_HOST=DATENBANK_SERVICE:5432 # Host des Datenbank-Services
+      - DB_NAME=DATENBANK_NAME # Name der Datenbank
+      - DB_USER=DATENBANK_BENUTZER # Benutzername der Datenbank
+      - DB_PASSWD=DATENBANK_PASSWORT # Passwort der Datenbank
+
+      # Redis-Konfiguration
+      - REDIS_ENABLED=true
+      - REDIS_HOST=REDIS_SERVICE:6379 # Host des Redis-Services
+
+      # E-Mail-Konfiguration (SMTP)
+      - MAIL_ENABLED=true
+      - MAIL_HOST=SMTP_HOST # SMTP-Host
+      - MAIL_PORT=SMTP_PORT # SMTP-Port
+      - MAIL_FROM=SMTP_ABSENDER # Absenderadresse
+      - MAIL_USER=SMTP_BENUTZER # Benutzername
+      - MAIL_PASSWD=SMTP_PASSWORT # Passwort
+      - MAIL_USE_TLS=true
+      - MAIL_USE_SSL=false
+
+      # Server-Konfiguration
+      - ROOT_URL=ANWENDUNGS_URL # Externe URL für Gitea
+      - HTTP_PORT=HTTP_PORT_CONTAINER # Interner Port für Gitea
+      - SSH_PORT=SSH_PORT_CONTAINER # Port für den Gitea-SSH-Server
+      - SSH_DOMAIN=SSH_DOMAIN # Domain für SSH-Zugriff
+      - DISABLE_REGISTRATION=REGISTRIERUNG_DEAKTIVIEREN # Registrierung deaktivieren (true/false)
+      - REQUIRE_SIGNIN_VIEW=ANMELDUNG_ERFORDERLICH # Anmeldung erforderlich, um Repositorys zu sehen (true/false)
+
+      # Weitere Optionen (auskommentiert)
+      # - SECRET_KEY=GEHEIMER_SCHLUESSEL # Geheimer Schlüssel für die Sitzungsverwaltung
+      # - LOG_LEVEL=LOG_LEVEL # Log-Level (trace, debug, info, warn, error, fatal)
+      # - LOG_ROOT_PATH=/data/gitea/log # Pfad für Log-Dateien
+      # - DEFAULT_THEME=STANDARD_THEME # Standard-Theme (auto, gitea, arc-green)
+      # - ENABLE_FEDERATION=FEDERATION_AKTIVIEREN # Aktiviert die Föderation (ActivityPub)
+    # Volume-Zuordnung
+    volumes:
+      - gitea_daten_volume:/data # Persistente Speicherung der Gitea-Daten
+    # Port-Zuordnung
+    ports:
+      - "HTTP_PORT_HOST:HTTP_PORT_CONTAINER" # HTTP-Port (Host -> Container)
+      - "SSH_PORT_HOST:SSH_PORT_CONTAINER" # SSH-Port (Host -> Container)
+    # Abhängigkeiten
+    depends_on:
+      - postgresql
+      - redis
+    # Netzwerk
+    networks:
+      - gitea-netzwerk
+
+  # Dienst: PostgreSQL-Service
+  postgresql:
+    # Verwendetes PostgreSQL-Image
+    image: postgres:13
+    # Name des Containers
+    container_name: postgresql
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Umgebungsvariablen
+    environment:
+      POSTGRES_USER: DATENBANK_BENUTZER
+      POSTGRES_PASSWORD: DATENBANK_PASSWORT
+      POSTGRES_DB: DATENBANK_NAME
+    # Volume-Zuordnung
+    volumes:
+      - postgresql_daten_volume:/var/lib/postgresql/data
+    # Netzwerk
+    networks:
+      - gitea-netzwerk
+
+  # Dienst: Redis-Service
+  redis:
+    # Verwendetes Redis-Image
+    image: redis:6.2
+    # Name des Containers
+    container_name: redis
+    # Neustartrichtlinie: Immer neu starten
+    restart: always
+    # Volume-Zuordnung
+    volumes:
+      - redis_daten_volume:/data
+    # Netzwerk
+    networks:
+      - gitea-netzwerk
+
+# Definierte Volumes
+volumes:
+  gitea_daten_volume: # Volume für Gitea-Daten
+  postgresql_daten_volume: # Volume für PostgreSQL-Daten
+  redis_daten_volume: # Volume für Redis-Daten
+
+# Definierte Netzwerke
+networks:
+  gitea-netzwerk:
+    driver: bridge

@@ -1,0 +1,15 @@
+volumes:
+  homarr: # Definition des benannten Volumes für die Homarr-Daten
+
+services:
+  homarr: # Definition des Homarr-Services (Dashboard-Anwendung)
+    container_name: homarr # Der Name des Containers
+    image: ghcr.io/ajnart/homarr:latest # Das zu verwendende Docker-Image (Homarr)
+    restart: unless-stopped # Neustart-Richtlinie: Container wird automatisch neu gestartet, außer wenn er manuell gestoppt wurde
+    volumes: # Volume-Mappings zwischen Host und Container
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, bindet den Docker-Socket für Docker-Integrationen
+      - homarr:/app/data/configs # Bindet das 'homarr' Volume an das Konfigurationsverzeichnis von Homarr
+      - homarr:/app/public/icons # Bindet das 'homarr' Volume an das Verzeichnis für Symbole von Homarr
+      - homarr:/data # Bindet das 'homarr' Volume an das Datenverzeichnis von Homarr
+    ports: # Port-Mapping zwischen Host und Container
+      - '7575:7575' # Port 7575 auf dem Host wird auf Port 7575 im Container gemappt
