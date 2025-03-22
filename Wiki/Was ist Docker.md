@@ -8,7 +8,7 @@ Docker ist im Kern eine Plattform, die es ermöglicht, Anwendungen in sogenannte
 * **Bibliotheken**: Externe Code-Bibliotheken, auf die die Anwendung zugreift.
 * **Einstellungen**: Konfigurationsdateien und Umgebungsvariablen.
 
-## Der Unterschied zu virtuellen Maschinen (VMs)
+## Der Unterschied zu virtuellen Maschinen
 
 Um den Vorteil von Docker zu verstehen, ist es hilfreich, ihn mit traditionellen virtuellen Maschinen (VMs) zu vergleichen:
 
