@@ -1,0 +1,32 @@
+services:
+  # Dienst: dockwatch
+  dockwatch:
+    # Name des Container
+    container_name: dockwatch
+    # Verwendetes Docker-Image
+    image: ghcr.io/notifiarr/dockwatch:main
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Port-Zuordnung: Host-Port 80 wird auf Container-Port 80 (TCP) abgebildet
+    ports:
+      - 80:80/tcp
+
+    # Umgebungsvariablen
+    environment:
+      # Zeitzone
+      - TZ=Europe/Berlin
+      # Benutzer-ID
+      - PUID=1001
+      # Gruppen-ID
+      - PGID=996
+    # Volume-Zuordnung
+    volumes:
+      # Benanntes Volume "config" wird in den Container-Pfad "/config" gemountet
+      - config:/config
+      # Mounten des Docker-Sockets des Hosts (auskommentiert, wenn ein Socket-Proxy verwendet wird)
+      - /var/run/docker.sock:/var/run/docker.sock # Comment this line if you use a socket proxy
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "config"
+  config:

@@ -1,0 +1,37 @@
+services:
+  baikal: # Definition des Baikal-Services (CalDAV/CardDAV Server)
+    image: ckulka/baikal:nginx # Das zu verwendende Docker-Image (Baikal mit Nginx)
+    restart: always # Neustart-Richtlinie: Container wird immer neu gestartet
+    environment: # Umgebungsvariablen für den Container
+      MSMTPRC: | # Konfiguration für msmtp (E-Mail-Versand)
+        defaults
+        auth on
+        tls on
+        tls_trust_file /etc/ssl/certs/ca-certificates.crt
+        account default
+        host example.de # Hostname des E-Mail-Servers
+        port 465 # Port des E-Mail-Servers (SMTPS)
+        from Baikal Server <no-reply@example.de> # Absenderadresse
+        user no-reply@example.de # Benutzername für den E-Mail-Server
+        password changeme # Passwort für den E-Mail-Server (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+    ports: # Port-Mapping zwischen Host und Container
+      - "80:80" # Port 80 auf dem Host wird auf Port 80 im Container gemappt
+    volumes: # Volume-Mappings zwischen Host und Container
+      - config:/var/www/baikal/config # Bindet das 'config' Volume an das Konfigurationsverzeichnis von Baikal
+      - data:/var/www/baikal/Specific # Bindet das 'data' Volume an das Datenverzeichnis von Baikal
+
+  db: # Definition des MariaDB-Services (Datenbank für Baikal)
+    image: mariadb:10 # Das zu verwendende Docker-Image (MariaDB 10)
+    restart: always # Neustart-Richtlinie: Container wird immer neu gestartet
+    environment: # Umgebungsvariablen für den Container
+      MYSQL_ROOT_PASSWORD: changeme2 # Passwort für den root-Benutzer der Datenbank (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+      MYSQL_DATABASE: baikal # Name der Datenbank für Baikal
+      MYSQL_USER: baikal # Benutzername für die Baikal-Datenbank
+      MYSQL_PASSWORD: changeme3 # Passwort für den Baikal-Benutzer (ACHTUNG: Dies sollte nicht im Klartext gespeichert werden!)
+    volumes: # Volume-Mapping zwischen Host und Container
+      - db:/var/lib/mysql # Bindet das 'db' Volume an das Datenverzeichnis von MariaDB
+
+volumes: # Definition der benannten Volumes
+  config: # Volume für die Baikal-Konfiguration
+  data: # Volume für die Baikal-Daten
+  db: # Volume für die MariaDB-Daten
