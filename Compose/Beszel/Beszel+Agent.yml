@@ -1,0 +1,45 @@
+services:
+  # Dienst: beszel
+  beszel:
+    # Verwendetes Docker-Image
+    image: henrygd/beszel
+    # Name des Containers
+    container_name: beszel
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Zusätzliche Host-Einträge
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    # Port-Zuordnung: Host-Port 8090 wird auf Container-Port 8090 abgebildet
+    ports:
+      - 8090:8090
+    # Volume-Zuordnung: Benanntes Volume "beszel_data" wird in den Container-Pfad "/beszel_data" gemountet
+    volumes:
+      - beszel_data:/beszel_data
+
+  # Dienst: beszel-agent
+  beszel-agent:
+    # Verwendetes Docker-Image
+    image: "henrygd/beszel-agent"
+    # Name des Containers
+    container_name: "beszel-agent"
+    # Neustartrichtlinie: Neustart, außer wenn explizit gestoppt
+    restart: unless-stopped
+    # Netzwerkmodus: Host-Netzwerk (Container verwendet das Netzwerk des Hosts)
+    network_mode: host
+    # Volume-Zuordnung: Docker-Socket des Hosts wird schreibgeschützt in den Container gemountet
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Optionale Volume-Zuordnung: Beispiel für das Mounten eines zusätzlichen Dateisystems (auskommentiert)
+      # - /mnt/disk/.beszel:/extra-filesystems/sda1:ro
+    # Umgebungsvariablen
+    environment:
+      # Port, auf dem der Agent lauscht
+      PORT: 45876
+      # SSH-Schlüssel für die Authentifizierung
+      KEY: "SSH Schlüssel"
+
+# Definierte Volumes
+volumes:
+  # Benanntes Volume "beszel_data"
+  beszel_data:
