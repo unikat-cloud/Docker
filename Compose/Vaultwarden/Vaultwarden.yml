@@ -3,7 +3,7 @@ services:
   vaultwarden:
     # Verwendetes Docker-Image
     image: vaultwarden/server:latest
-    # Name des Containers
+    # Name des Container
     container_name: vaultwarden
     # Neustartrichtlinie: Immer neu starten
     restart: always
