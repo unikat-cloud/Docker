@@ -10,7 +10,7 @@ Docker Compose vereinfacht die Verwaltung von Multi-Container-Docker-Anwendungen
 
 Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzeichnis:
 
-| Datei                     | Beschreibung                                                                                              | Tags                     | GitHub-Repository                                                                                                  |
+| Datei                     | Beschreibung                                                                                              | Tags                     | Link zum offiziellen GitHub-Repository                                                                                                  |
 |---------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------|
 | Adguard.yml               | Netzwerkweiter Werbe- und Trackingschutz mit AdGuard Home                                                 | Netzwerk, Sicherheit      | [AdGuardTeam/AdGuardHome](https://github.com/AdGuardTeam/AdGuardHome)                                               |
 | Baikal.yml                | Einfacher CalDAV- und CardDAV-Server für Kalender und Kontakte (Baïkal)                                     | Kalender, Kontakte       | [sabre-io/Baikal](https://github.com/sabre-io/Baikal)                                                              |
