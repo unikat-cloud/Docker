@@ -63,3 +63,5 @@ Nach der Bereitstellung können Sie die Container und Dienste bequem in Portaine
 * Volumes: Stellen Sie sicher, dass die Volumes korrekt konfiguriert sind, um Datenpersistenz zu gewährleisten.
 * Netzwerke: Einige Stacks erfordern möglicherweise benutzerdefinierte Netzwerke. Konfigurieren Sie diese entsprechend.
 * Domains/URLs: Ersetzen Sie die Platzhalter-Domains und URLs in den YAML-Dateien durch Ihre eigenen.
+
+**Bitte beachten Sie, dass die hier aufgeführten Anwendungen nicht von mir stammen. Sie wurden lediglich aufbereitet, um sie einer breiteren Community zugänglich zu machen und die Bereitstellung zu vereinfachen. Sollten Sie als Urheber Einwände gegen die Bereitstellung haben, kontaktieren Sie mich bitte, damit wir eine Lösung finden können. **
