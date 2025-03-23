@@ -23,10 +23,4 @@ Das Homepage-Dashboard ist eine moderne, schlanke und äußerst anpassbare Anwen
 * Es kann auch in kleinen Teams oder Organisationen eingesetzt werden, um den Zugriff auf interne Anwendungen zu zentralisieren.
 * Homepage ist sehr gut dafür geeignet, seine Social Media Kanäle zu verwalten.
 
-## Unterschiede zu anderen Dashboards
-
-* Homepage legt einen starken Fokus auf ein minimalistisches Design und eine einfache Konfiguration.
-* Es ist auf eine einfache und schnelle Konfiguration ausgelegt.
-* Die YAML nutzung ist am anfang gewöhnungsbedürftig.
-
 Zusammenfassend ist das Homepage-Dashboard eine ausgezeichnete Wahl für Benutzer, die ein schlankes, modernes und hochgradig anpassbares Dashboard für ihre Webanwendungen suchen.
