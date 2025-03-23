@@ -14,3 +14,12 @@ Immich ermöglicht es dem Nutzer seine Bilder und Videos selbst zu hosten und zu
 * **Teilen:** Du kannst Fotos und Videos ganz einfach mit Freunden und Familie teilen, indem du Links erstellst oder Alben freigibst.
 * **Kartenansicht:** Immich zeigt deine Fotos auf einer Karte an, sodass du sehen kannst, wo du sie aufgenommen hast.
 * **Gesichtserkennung:** Immich kann Gesichter in deinen Fotos erkennen und gruppieren, sodass du Fotos von bestimmten Personen leicht finden kannst.
+
+## Vorteile von Immich:
+
+* **Open Source:** Da es sich um Open Source handelt, ist es für jeden Kostenlos und kann durch die Community verbessert werden.
+* **Datenschutz:** Durch das selbst hosten der Bilder und Videos behält der Nutzer die volle Kontrolle über seine Daten.
+* **Funktionsumfang:** Durch die vielen Funktionen ist Immich eine sehr gute alternative zu Cloud lösungen.
+* **Aktive entwicklung:** Durch die Aktive Community wird Immich ständig verbessert.
+
+Immich ist eine sehr gute möglichkeit seine Bilder und Videos selbst zu hosten und zu organisieren.
