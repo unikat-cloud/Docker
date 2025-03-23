@@ -10,35 +10,34 @@ Docker Compose vereinfacht die Verwaltung von Multi-Container-Docker-Anwendungen
 
 Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzeichnis:
 
-| Datei                           | Beschreibung                                                                  | Tags                     |
-| :-------------------------------- | :------------------------------------------------------------------------------ | :------------------------- |
-| `Adguard.yml`                     | Netzwerkweiter Werbe- und Trackingschutz mit AdGuard Home                      | Netzwerk, Sicherheit       |
-| `Baikal.yml`                      | Einfacher CalDAV- und CardDAV-Server für Kalender und Kontakte (Baïkal)         | Kalender, Kontakte         |
-| `Beszel+Agent.yml`                | Beszel und sein zugehöriger Agent für spezifische Anwendungen                   | Automatisierung, Agent     |
-| `Dockge.yml`                      | Docker Compose Stack Manager                                                    | Docker, Verwaltung         |
-| `Dockwatch.yml`                   | Überwachung von Docker-Containern mit Dockwatch                                | Überwachung, Docker        |
-| `FreshRSS.yml`                    | Selbstgehosteter RSS-Aggregator zum Abonnieren von Nachrichtenfeeds (FreshRSS)  | RSS, Nachrichten           |
-| `Gitea.yml`                       | Selbstgehosteter Git-Service zur Versionsverwaltung von Code (Gitea)           | Git, Versionsverwaltung    |
-| `Heimdall.yml`                    | Application Dashboard / Startseite                                              | Dashboard, Tools           |
-| `Homarr.yml`                      | Dashboard-Anwendung zur Organisation von Diensten                               | Dashboard, Tools           |
-| `Homepage.yml`                    | Dashboard-Anwendung zur Organisation von Diensten                               | Dashboard, Tools           |
-| `Immich.yml`                      | Foto- und Video-Backup-Lösung für die eigene Cloud (Immich)                   | Backup, Multimedia         |
-| `Joplin.yml`                      | Notiz-App für die Organisation von Notizen und Aufgaben (Joplin)               | Notizen, Organisation      |
-| `Linkstack.yml`                   | Lesezeichen-Tool zur Verwaltung von Web-Links (Linkstack)                       | Lesezeichen, Tools         |
-| `N8N.yml`                         | Automatisierungsplattform zur Verbindung verschiedener Dienste (N8N)           | Automatisierung, Integration |
-| `Nextcloud (Cron-Edition).yml`     | Nextcloud mit Cronjob-Container für geplante Aufgaben                          | Cloud, Produktivität       |
-| `Nginx.yml`                       | Nginx Proxy Manager zur Verwaltung von Reverse-Proxies                         | Netzwerk, Proxy            |
-| `OpenVpn-AS.yml`                  | OpenVPN Access Server für sichere VPN-Verbindungen                             | VPN, Sicherheit            |
-| `Paperless+AI.yml`                | Paperless-ngx mit KI-Funktionen zur Dokumentenverwaltung                       | Dokumente, KI              |
-| `Pi-Hole.yml`                     | Netzwerkweiter Werbe- und Trackingschutz mit Pi-hole                            | Netzwerk, Sicherheit       |
-| `README.md`                      | Dokumentation der Docker Compose Stacks                                        | Dokumentation, Metadaten   |
-| `Rustdesk.yml`                    | Remote-Desktop-Anwendung für Fernzugriff (Rustdesk)                            | Fernzugriff, Tools         |
-| `seafile.yml`                     | Datei-Synchronisations- und Freigabe-Server (Seafile)                           | Cloud, Dateiverwaltung     |
-| `Snipe-IT.yml`                    | Asset-Management-System zur Verwaltung von Hardware und Software (Snipe-IT)    | Asset-Management, IT       |
-| `Stirling-PDF.yml`                | PDF-Bearbeitungstool für verschiedene PDF-Manipulationen (Stirling-PDF)         | PDF, Tools                 |
-| `Uptime-Kuma.yml`                 | Überwachungstool zur Prüfung der Verfügbarkeit von Diensten (Uptime Kuma)     | Überwachung, Tools         |
-| `Vaultwarden.yml`                 | Passwortmanager zur sicheren Speicherung von Passwörtern (Vaultwarden)         | Passwortmanager, Sicherheit |
-| `Wallos.yml`                      | Webanwendung für spezifische Zwecke (Wallos)                                   | Webanwendung, Sonstiges    |
+| Datei                     | Beschreibung                                                                                              | Tags                     | GitHub-Repository                                                                                                  |
+|---------------------------|-----------------------------------------------------------------------------------------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------|
+| Adguard.yml               | Netzwerkweiter Werbe- und Trackingschutz mit AdGuard Home                                                 | Netzwerk, Sicherheit      | [AdGuardTeam/AdGuardHome](https://github.com/AdGuardTeam/AdGuardHome)                                               |
+| Baikal.yml                | Einfacher CalDAV- und CardDAV-Server für Kalender und Kontakte (Baïkal)                                     | Kalender, Kontakte       | [sabre-io/Baikal](https://github.com/sabre-io/Baikal)                                                              |
+| Beszel + Agent.yml        | Beszel und sein zugehöriger Agent für spezifische Anwendungen                                               | Automatisierung, Agent    | [beszel-dev/beszel](https://www.google.com/search?q=https://github.com/beszel-dev/beszel)                                                             |
+| Dockge.yml                | Docker Compose Stack Manager                                                                              | Docker, Verwaltung        | [louislam/dockge](https://github.com/louislam/dockge)                                                               |
+| Dockwatch.yml             | Überwachung von Docker-Containern mit Dockwatch                                                             | Überwachung, Docker       | [dockwatch/dockwatch](https://www.google.com/search?q=https://github.com/dockwatch/dockwatch)                                                       |
+| FreshRSS.yml              | Selbstgehosteter RSS-Aggregator zum Abonnieren von Nachrichtenfeeds (FreshRSS)                             | RSS, Nachrichten           | [FreshRSS/FreshRSS](https://github.com/FreshRSS/FreshRSS)                                                           |
+| Gitea.yml                 | Selbstgehosteter Git-Service zur Versionsverwaltung von Code (Gitea)                                        | Git, Versionsverwaltung  | [go-gitea/gitea](https://github.com/go-gitea/gitea)                                                                 |
+| Heimdall.yml              | Application Dashboard / Startseite                                                                        | Dashboard, Tools           | [linuxserver/Heimdall](https://github.com/linuxserver/Heimdall)                                                       |
+| Homarr.yml                | Dashboard-Anwendung zur Organisation von Diensten                                                           | Dashboard, Tools           | [ajnart/homarr](https://github.com/ajnart/homarr)                                                                    |
+| Homepage.yml              | Dashboard-Anwendung zur Organisation von Diensten                                                           | Dashboard, Tools           | [gethomepage/homepage](https://github.com/gethomepage/homepage)                                                       |
+| Immich.yml                | Foto- und Video-Backup-Lösung für die eigene Cloud (Immich)                                                 | Backup, Multimedia       | [immich-app/immich](https://github.com/immich-app/immich)                                                             |
+| Joplin.yml                | Notiz-App für die Organisation von Notizen und Aufgaben (Joplin)                                            | Notizen, Organisation      | [laurent22/joplin](https://github.com/laurent22/joplin)                                                              |
+| Linkstack.yml             | Lesezeichen-Tool zur Verwaltung von Web-Links (Linkstack)                                                    | Lesezeichen, Tools        | [linkstackorg/linkstack](https://github.com/linkstackorg/linkstack)                                                 |
+| N8N.yml                   | Automatisierungsplattform zur Verbindung verschiedener Dienste (N8N)                                       | Automatisierung, Integration| [n8n-io/n8n](https://github.com/n8n-io/n8n)                                                                         |
+| Nextcloud (Cron-Edition).yml| Nextcloud mit Cronjob-Container für geplante Aufgaben                                                        | Cloud, Produktivität      | [nextcloud/docker](https://github.com/nextcloud/docker) (basiert auf dem offiziellen Nextcloud Docker-Image)      |
+| Nginx.yml                 | Nginx Proxy Manager zur Verwaltung von Reverse-Proxies                                                      | Netzwerk, Proxy            | [NginxProxyManager/nginx-proxy-manager](https://github.com/NginxProxyManager/nginx-proxy-manager)                  |
+| OpenVpn-AS.yml            | OpenVPN Access Server für sichere VPN-Verbindungen                                                         | VPN, Sicherheit           | [OpenVPN/as-installer](https://www.google.com/search?q=https://github.com/OpenVPN/as-installer)  (offizielle OpenVPN-Distribution)                |
+| Paperless + AI.yml        | Paperless-ngx mit KI-Funktionen zur Dokumentenverwaltung                                                    | Dokumente, KI              | [paperless-ngx/paperless-ngx](https://github.com/paperless-ngx/paperless-ngx)                                       |
+| Pi-Hole.yml               | Netzwerkweiter Werbe- und Trackingschutz mit Pi-hole                                                       | Netzwerk, Sicherheit      | [pi-hole/pi-hole](https://github.com/pi-hole/pi-hole)                                                               |                               |
+| Rustdesk.yml              | Remote-Desktop-Anwendung für Fernzugriff (Rustdesk)                                                         | Fernzugriff, Tools        | [rustdesk/rustdesk](https://github.com/rustdesk/rustdesk)                                                           |
+| Seafile.yml               | Datei-Synchronisations- und Freigabe-Server (Seafile)                                                        | Cloud, Dateiverwaltung   | [haiwen/seafile-docker](https://github.com/haiwen/seafile-docker) (offizielles Seafile Docker-Image)                |
+| Snipe-IT.yml              | Asset-Management-System zur Verwaltung von Hardware und Software (Snipe-IT)                               | Asset-Management, IT       | [snipe/snipe-it](https://github.com/snipe/snipe-it)                                                                 |
+| Stirling-PDF.yml          | PDF-Bearbeitungstool für verschiedene PDF-Manipulationen (Stirling-PDF)                                      | PDF, Tools                | [Stirling-Tools/Stirling-PDF](https://github.com/Stirling-Tools/Stirling-PDF)                                     |
+| Uptime-Kuma.yml           | Überwachungstool zur Prüfung der Verfügbarkeit von Diensten (Uptime Kuma)                                    | Überwachung, Tools        | [louislam/uptime-kuma](https://github.com/louislam/uptime-kuma)                                                    |
+| Vaultwarden.yml           | Passwortmanager zur sicheren Speicherung von Passwörtern (Vaultwarden)                                       | Passwortmanager, Sicherheit| [dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden)                                               |
+| Wallos.yml                | Webanwendung für spezifische Zwecke (Wallos)                                                               | Webanwendung, Sonstiges    | [wallos-io/wallos](https://www.google.com/search?q=https://github.com/wallos-io/wallos)                                                               |
 
 ##  Verwendung mit Portainer
 
