@@ -1,0 +1,29 @@
+services:
+  front: # Definition des Frontend-Dienstes
+    image: tombursch/kitchenowl-web:latest # Verwendet das neueste Image des Frontend-Containers
+    restart: unless-stopped # Startet den Container automatisch neu, außer er wurde manuell gestoppt
+    environment: # Umgebungsvariablen für den Frontend-Container
+      - FRONT_URL=kitchenowl.unikat-cloud.de # Setzt die Basis-URL des Frontends
+    ports: # Port-Zuordnung
+      - "60018:80" # Ordnet Port 80 im Container Port 60018 auf dem Host-System zu
+    depends_on: # Abhängigkeiten des Frontend-Dienstes
+      - back # Der Frontend-Dienst ist vom Backend-Dienst abhängig
+
+  back: # Definition des Backend-Dienstes
+    image: tombursch/kitchenowl-backend:latest # Verwendet das neueste Image des Backend-Containers
+    restart: unless-stopped # Startet den Container automatisch neu, außer er wurde manuell gestoppt
+    environment: # Umgebungsvariablen für den Backend-Container
+      - JWT_SECRET_KEY=changeme # Geheimer Schlüssel für JWT-Authentifizierung (MUSS GEÄNDERT WERDEN!)
+      - TZ=Europe/Berlin # Zeitzone des Containers
+      - FRONT_URL=kitchenowl.example.de # URL des Frontends, die vom Backend verwendet wird
+      - SMTP_HOST=example.de # SMTP-Host für E-Mail-Versand (MUSS GEÄNDERT WERDEN!)
+      - SMTP_PORT=587 # SMTP-Port
+      - SMTP_USE_TLS=true # TLS für SMTP verwenden
+      - SMTP_USER=no-reply@example.de # SMTP-Benutzername (MUSS GEÄNDERT WERDEN!)
+      - SMTP_PASS=changeme2 # SMTP-Passwort (MUSS GEÄNDERT WERDEN!)
+      - SMTP_FROM=no-reply@example.de # Absenderadresse für E-Mails (MUSS GEÄNDERT WERDEN!)
+    volumes: # Volume-Zuordnung
+      - kitchenowl_data:/data # Bindet das benannte Volume "kitchenowl_data" an /data im Container
+
+volumes: # Definition der benannten Volumes
+  kitchenowl_data: # Definiert das Volume "kitchenowl_data" für persistente Daten
