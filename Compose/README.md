@@ -38,6 +38,8 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | Uptime-Kuma.yml           | Überwachungstool zur Prüfung der Verfügbarkeit von Diensten (Uptime Kuma)                                    | Überwachung, Tools        | [louislam/uptime-kuma](https://github.com/louislam/uptime-kuma)                                                    |
 | Vaultwarden.yml           | Passwortmanager zur sicheren Speicherung von Passwörtern (Vaultwarden)                                       | Passwortmanager, Sicherheit| [dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden)                                               |
 | Wallos.yml                | Webanwendung für spezifische Zwecke (Wallos)                                                               | Webanwendung, Sonstiges    | [wallos-io/wallos](https://www.google.com/search?q=https://github.com/wallos-io/wallos)                                                               |
+| KitchenOwl.yml      | Rezept- und Einkaufslisten-Manager (KitchenOwl)        | Kochen, Organisation   | [kitchenowl-project/kitchenowl](https://www.google.com/search?q=https://github.com/kitchenowl-project/kitchenowl)              |
+
 
 ##  Verwendung mit Portainer
 
