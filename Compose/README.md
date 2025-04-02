@@ -39,6 +39,7 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | Vaultwarden.yml           | Passwortmanager zur sicheren Speicherung von Passwörtern (Vaultwarden)                                       | Passwortmanager, Sicherheit| [dani-garcia/vaultwarden](https://github.com/dani-garcia/vaultwarden)                                               |
 | Wallos.yml                | Webanwendung für spezifische Zwecke (Wallos)                                                               | Webanwendung, Sonstiges    | [wallos-io/wallos](https://www.google.com/search?q=https://github.com/wallos-io/wallos)                                                               |
 | KitchenOwl.yml      | Rezept- und Einkaufslisten-Manager (KitchenOwl)        | Kochen, Organisation   | [kitchenowl-project/kitchenowl](https://www.google.com/search?q=https://github.com/kitchenowl-project/kitchenowl)              |
+| Docuseal.yml      | Dokumentenmanagement und digitale Signaturen (Docuseal)                                                                     | Dokumentenmanagement, Signatur | [docuseal/docuseal](https://github.com/docusealco/docuseal)                     |
 
 
 ##  Verwendung mit Portainer
