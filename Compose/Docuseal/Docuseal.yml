@@ -1,0 +1,29 @@
+services:
+  app: # Definiert den Service für die Docuseal-Anwendung
+    depends_on: # Gibt an, dass dieser Service von einem anderen Service abhängt
+      postgres: # Abhängigkeit von dem PostgreSQL-Service
+        condition: service_healthy # Der Service wird erst gestartet, wenn der PostgreSQL-Service "healthy" ist (laut Healthcheck)
+    image: docuseal/docuseal:latest # Verwendet das neueste Docuseal-Image von Docker Hub
+    ports:
+      - "60019:3000" # Ordnet Port 3000 des Containers Port 60019 des Hosts zu
+    volumes:
+      - docuseal:/data/docuseal # Bindet ein benanntes Volume "docuseal" an das Datenverzeichnis im Container
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/docuseal # Konfiguriert die Datenbankverbindung
+
+  postgres: # Definiert den Service für die PostgreSQL-Datenbank
+    image: postgres:15 # Verwendet das PostgreSQL 15-Image
+    volumes:
+      - './pg_data:/var/lib/postgresql/data' # Bindet das lokale Verzeichnis "./pg_data" an das Datenverzeichnis im Container
+    environment:
+      POSTGRES_USER: postgres # Setzt den PostgreSQL-Benutzernamen
+      POSTGRES_PASSWORD: postgres # Setzt das PostgreSQL-Passwort
+      POSTGRES_DB: docuseal # Setzt den Namen der PostgreSQL-Datenbank
+    healthcheck: # Definiert einen Healthcheck für den PostgreSQL-Service
+      test: ["CMD-SHELL", "pg_isready -U postgres"] # Führt den Befehl "pg_isready" aus, um zu prüfen, ob die Datenbank bereit ist
+      interval: 5s # Führt den Healthcheck alle 5 Sekunden aus
+      timeout: 5s # Gibt dem Healthcheck 5 Sekunden Zeit zum Abschließen
+      retries: 5 # Versucht den Healthcheck 5 Mal, bevor der Service als "unhealthy" markiert wird
+
+volumes:
+  docuseal: # Definiert das benannte Volume "docuseal"
