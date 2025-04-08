@@ -1,0 +1,21 @@
+services:
+  onlyoffice-docs:
+    container_name: onlyoffice-docsserver
+    image: onlyoffice/documentserver:latest
+    ports:
+      - "80:80"
+      - "443:443" # Für HTTPS (wird vom Reverse-Proxy genutzt)
+    volumes:
+      - data:/var/www/onlyoffice/Data
+      - log:/var/log/onlyoffice
+      - lib:/var/lib/onlyoffice
+    environment:
+      - TZ=Europe/Berlin
+      - JWT_ENABLED=true
+      - JWT_SECRET=chngeme
+    restart: always
+
+volumes:
+  data:
+  log:
+  lib:
