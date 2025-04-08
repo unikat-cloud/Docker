@@ -1,37 +1,59 @@
-# OnlyOffice DocumentServer
+## OnlyOffice DocumentServer: Die kollaborative und datenschutzfreundliche Office-Suite für Ihr Team
 
-OnlyOffice DocumentServer ist eine Open-Source-Office-Suite, die in erster Linie als Online-Kollaborationsplattform für Dokumente, Tabellenkalkulationen und Präsentationen dient. Sie ermöglicht es mehreren Benutzern, gleichzeitig an denselben Dateien in Echtzeit zusammenzuarbeiten.
+**OnlyOffice DocumentServer ist eine kostenlose und Open-Source-Office-Suite, die sich auf Zusammenarbeit und leistungsstarke Funktionen konzentriert. Es bietet eine zugängliche und effiziente Möglichkeit, Dokumente gemeinsam zu bearbeiten und dabei Ihre Privatsphäre zu respektieren.**
 
-**Kernfunktionen:**
+**Was ist OnlyOffice DocumentServer?**
 
-* **Umfassende Office-Suite:** Bietet Editoren für Textdokumente, Tabellenkalkulationen und Präsentationen, die mit gängigen Formaten wie DOCX, XLSX und PPTX kompatibel sind.
-* **Kollaboration in Echtzeit:** Ermöglicht die gleichzeitige Bearbeitung von Dokumenten durch mehrere Benutzer mit Funktionen wie Cursor-Tracking, Hervorhebungen und integriertem Chat.
-* **Versionsverwaltung:** Behält den Überblick über Änderungen und ermöglicht es, zu früheren Versionen eines Dokuments zurückzukehren.
-* **Kommentarfunktionen:** Benutzer können Kommentare zu bestimmten Textstellen oder Objekten hinterlassen, um Feedback zu geben und Diskussionen zu führen.
-* **Integration mit Gitea:** Kann in Gitea integriert werden, um die Online-Bearbeitung von Dokumenten zu ermöglichen, die in Gitea-Repositories gespeichert sind. Dies ermöglicht einen nahtlosen Workflow für die Zusammenarbeit an Dokumenten im Kontext von Softwareentwicklungsprojekten oder anderen kollaborativen Projekten.
-* **Plattformübergreifend:** Die Webanwendung ist mit den meisten modernen Webbrowsern kompatibel und ermöglicht so den Zugriff von verschiedenen Betriebssystemen aus.
-* **Erweiterbarkeit:** Bietet eine API und Plugins, um die Funktionalität zu erweitern und in andere Anwendungen zu integrieren.
+Ähnlich wie Kdenlive im Bereich der Videoeditoren setzt auch OnlyOffice DocumentServer auf folgende Grundprinzipien:
 
-**Integration mit Gitea:**
+* **Datenschutzorientiertes Arbeiten:** OnlyOffice DocumentServer respektiert Ihre Privatsphäre. Da es sich um Open-Source-Software handelt, ist der Quellcode transparent und nachvollziehbar. Es werden keine unnötigen Daten gesammelt oder weitergegeben. Ihre Dokumente und Daten bleiben Ihre eigenen.
 
-Die Integration von OnlyOffice DocumentServer in Gitea bietet folgende Vorteile:
+* **Leistung und Effizienz:** OnlyOffice DocumentServer ist darauf ausgelegt, auch mit umfangreichen Dokumenten und vielen Nutzern flüssig zu arbeiten. Es nutzt moderne Technologien, um eine schnelle und stabile Bearbeitung zu ermöglichen.
 
-* **Direkte Dokumentenbearbeitung:** Benutzer können Office-Dokumente, die in ihren Gitea-Repositories gespeichert sind, direkt im Browser öffnen und bearbeiten, ohne sie herunterladen und mit einer Desktop-Anwendung bearbeiten zu müssen.
-* **Kollaborativer Workflow:** Mehrere Benutzer mit Zugriff auf ein Gitea-Repository können gleichzeitig an einem Dokument arbeiten und ihre Änderungen in Echtzeit sehen.
-* **Versionskontrolle:** Alle Änderungen, die über OnlyOffice DocumentServer vorgenommen werden, werden in der Versionsgeschichte des entsprechenden Gitea-Repositorys erfasst.
-* **Zentrale Plattform:** Bietet eine zentrale Plattform für die Codeverwaltung und die zugehörige Dokumentation oder andere Office-Dokumente, an denen im Projekt gearbeitet wird.
+* **Kostenlos und Open Source:** OnlyOffice DocumentServer ist für jeden frei verfügbar und kann ohne Lizenzgebühren genutzt werden. Die Open-Source-Natur ermöglicht eine aktive Community, die zur Weiterentwicklung beiträgt und bei Fragen unterstützt.
 
-**Einrichtung und Konfiguration:**
+* **Cross-Plattform:** OnlyOffice DocumentServer ist für verschiedene Betriebssysteme verfügbar und kann in bestehende Infrastrukturen integriert werden. So können Sie Ihre bevorzugte Plattform nutzen, um Ihre Dokumente zu bearbeiten.
 
-Die Integration von OnlyOffice DocumentServer in Gitea erfordert in der Regel die Installation und Konfiguration einer separaten OnlyOffice DocumentServer-Instanz, die dann mit der Gitea-Installation verbunden wird. Die genauen Schritte zur Einrichtung können je nach den spezifischen Installationsmethoden und Konfigurationen variieren. In der Gitea-Administrationsoberfläche gibt es normalerweise Einstellungen, um die URL des OnlyOffice DocumentServers anzugeben und gegebenenfalls weitere Konfigurationen vorzunehmen.
+**Vorteile von OnlyOffice DocumentServer:**
 
-**Anwendungsfälle:**
+* **Umfassende Bearbeitungsmöglichkeiten:** OnlyOffice DocumentServer bietet eine breite Palette an Werkzeugen und Funktionen für die gemeinsame Bearbeitung von Textdokumenten, Tabellenkalkulationen und Präsentationen.
 
-* **Gemeinsames Erstellen von Projektberichten und Dokumentationen direkt im Gitea-Repository.**
-* **Kollaboratives Bearbeiten von Anforderungsdokumenten oder Spezifikationen.**
-* **Erstellung und Überarbeitung von Präsentationen für Projektbesprechungen.**
-* **Gemeinsames Bearbeiten von Tabellenkalkulationen für die Projektplanung oder das Tracking von Aufgaben.**
+* **Flexibilität und Anpassbarkeit:** Die Benutzeroberfläche von OnlyOffice DocumentServer ist anpassbar, sodass Sie Ihren Arbeitsbereich optimal an Ihre Bedürfnisse anpassen können.
 
-**Fazit:**
+* **Unterstützung vieler Formate:** OnlyOffice DocumentServer unterstützt eine Vielzahl von Dokumentformaten, darunter DOCX, XLSX und PPTX, sodass Sie flexibel mit verschiedenen Dateien arbeiten können.
 
-OnlyOffice DocumentServer in Kombination mit Gitea bietet eine leistungsstarke Lösung für die kollaborative Bearbeitung von Office-Dokumenten im Kontext von Softwareentwicklungsprojekten und anderen gemeinschaftlichen Arbeitsbereichen. Die nahtlose Integration ermöglicht einen effizienten Workflow und verbessert die Zusammenarbeit direkt innerhalb der Gitea-Plattform.
+* **Aktive Community:** Eine große und hilfsbereite Community steht Ihnen bei Fragen und Problemen zur Seite. Zahlreiche Tutorials und Dokumentationen erleichtern den Einstieg und die fortgeschrittene Nutzung.
+
+* **Ressourcenschonend:** Obwohl OnlyOffice DocumentServer viele leistungsstarke Funktionen bietet, ist es darauf ausgelegt, ressourcenschonend zu arbeiten, sodass es auch auf älteren oder weniger leistungsstarken Servern gut läuft.
+
+**Grundlegende Funktionen:**
+
+* **Gleichzeitige Bearbeitung:** Ermöglicht die Zusammenarbeit mehrerer Benutzer an einem Dokument in Echtzeit.
+
+* **Kommentare und Erwähnungen:** Erleichtern die Kommunikation und das Feedback innerhalb des Dokuments.
+
+* **Versionsverlauf:** Speichert frühere Versionen von Dokumenten, sodass Änderungen nachverfolgt und bei Bedarf wiederhergestellt werden können.
+
+* **Integrierte Chatfunktion:** Bietet eine Möglichkeit zur direkten Kommunikation zwischen den Nutzern während der Dokumentbearbeitung.
+
+* **Zugriffsrechteverwaltung:** Steuert, wer Dokumente anzeigen, bearbeiten oder kommentieren darf.
+
+**Anwendungsbereiche:**
+
+* **Zusammenarbeit in Teams:** Ermöglicht die effiziente gemeinsame Erstellung und Bearbeitung von Dokumenten in Unternehmen und Organisationen.
+
+* **Bildung und Lehre:** Unterstützt die kollaborative Erstellung von Skripten, Präsentationen und anderen Lehrmaterialien.
+
+* **Projektmanagement:** Hilft bei der gemeinsamen Planung, Durchführung und Dokumentation von Projekten.
+
+* **Gemeinnützige Organisationen:** Ermöglicht die effiziente Zusammenarbeit bei der Erstellung von Berichten, Anträgen und anderen Dokumenten.
+
+* **Private Nutzung:** Ideal für die gemeinsame Planung von Veranstaltungen, Erstellung von Familienchroniken oder anderen Dokumenten im privaten Bereich.
+
+**Zusätzliche Informationen zu OnlyOffice DocumentServer:**
+
+* OnlyOffice DocumentServer ist **kostenlos und Open Source**.
+
+* OnlyOffice DocumentServer bietet eine **Vielzahl von Funktionen**, die den Datenschutz und die Sicherheit der Nutzer respektieren.
+
+* Die **offizielle Webseite von OnlyOffice ist onlyoffice.com**. Dort finden Sie weitere Informationen, Downloads, Dokumentationen und die aktive Community.
