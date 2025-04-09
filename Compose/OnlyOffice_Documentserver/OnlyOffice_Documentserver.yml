@@ -1,21 +1,21 @@
 services:
   onlyoffice-docs:
-    container_name: onlyoffice-docsserver
-    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice-docsserver # Definiert den Namen des Docker-Containers
+    image: onlyoffice/documentserver:latest # Verwendet das neueste Image des ONLYOFFICE Document Servers von Docker Hub
     ports:
-      - "80:80"
-      - "443:443" # Für HTTPS (wird vom Reverse-Proxy genutzt)
+      - "80:80" # Leitet Port 80 des Hosts auf Port 80 des Containers weiter (HTTP)
+      - "443:443" # Für HTTPS (wird vom Reverse-Proxy genutzt) - Leitet Port 443 des Hosts auf Port 443 des Containers weiter (HTTPS)
     volumes:
-      - data:/var/www/onlyoffice/Data
-      - log:/var/log/onlyoffice
-      - lib:/var/lib/onlyoffice
+      - data:/var/www/onlyoffice/Data # Mountet das benannte Volume 'data' in das Datenverzeichnis des Containers
+      - log:/var/log/onlyoffice # Mountet das benannte Volume 'log' in das Logverzeichnis des Containers
+      - lib:/var/lib/onlyoffice # Mountet das benannte Volume 'lib' in das Bibliotheksverzeichnis des Containers
     environment:
-      - TZ=Europe/Berlin
-      - JWT_ENABLED=true
-      - JWT_SECRET=chngeme
-    restart: always
+      - TZ=Europe/Berlin # Setzt die Zeitzone des Containers auf Europe/Berlin
+      - JWT_ENABLED=true # Aktiviert die JSON Web Token (JWT) Unterstützung für die sichere Kommunikation
+      - JWT_SECRET=chngeme # Setzt das geheime Schlüssel für JWT (sollte in der Produktion geändert werden!)
+    restart: always # Startet den Container automatisch neu, falls er stoppt
 
 volumes:
-  data:
-  log:
-  lib:
+  data: # Definiert das benannte Volume 'data' für persistente Datenspeicherung
+  log: # Definiert das benannte Volume 'log' für persistente Logdateien
+  lib: # Definiert das benannte Volume 'lib' für persistente Bibliotheksdateien
