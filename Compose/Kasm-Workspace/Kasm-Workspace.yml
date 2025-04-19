@@ -1,0 +1,25 @@
+services:
+  kasm:
+    image: lscr.io/linuxserver/kasm:latest # Verwendet das neueste Image von LinuxServer.io für Kasm.
+    container_name: kasm # Gibt dem Container den Namen 'kasm'. Das ist hilfreich zur Identifizierung und Verwaltung.
+    privileged: true # Erlaubt dem Container erweiterte Berechtigungen auf dem Host-System. Für Kasm kann das für bestimmte Funktionen notwendig sein. Sei vorsichtig mit dieser Einstellung!
+    environment:
+      - KASM_PORT=443 # Setzt die interne Portnummer für Kasm auf 443.
+      - DOCKER_HUB_USERNAME=USER #optional # Ermöglicht die Angabe eines Docker Hub Benutzernamens für den Zugriff auf private Images (optional). Ersetze 'USER' durch deinen Benutzernamen.
+      - DOCKER_HUB_PASSWORD=PASS #optional # Ermöglicht die Angabe des zugehörigen Docker Hub Passworts (optional). Ersetze 'PASS' durch dein Passwort.
+      - DOCKER_MTU=1500 #optional # Setzt die Maximum Transmission Unit (MTU) für das Docker-Netzwerk auf 1500 (optional). Kann in bestimmten Netzwerkkonfigurationen nützlich sein.
+    volumes:
+      - data:/opt # Mountet ein Docker Volume namens 'data' in den Pfad '/opt' innerhalb des Containers. Hier können persistente Daten von Kasm gespeichert werden.
+      - profiles:/profiles #optional # Mountet ein optionales Docker Volume namens 'profiles' in den Pfad '/profiles' innerhalb des Containers. Dies könnte für die Speicherung von Benutzerprofilen gedacht sein.
+      - input:/dev/input #optional # Mountet das Host-Systemverzeichnis '/dev/input' in den Container (optional). Dies könnte notwendig sein, um Eingabegeräte wie Tastatur und Maus innerhalb von Kasm zu nutzen.
+      - run:/run/udev/data #optional # Mountet das Host-Systemverzeichnis '/run/udev/data' in den Container (optional). Dies könnte für die Geräteverwaltung innerhalb des Containers erforderlich sein.
+    ports:
+      - 3000:3000 # Leitet Port 3000 des Host-Systems auf Port 3000 des Containers weiter.
+      - 443:443 # Leitet Port 443 des Host-Systems auf Port 443 des Containers weiter. Hier ist wahrscheinlich der HTTPS-Zugriff auf Kasm konfiguriert.
+    restart: unless-stopped # Konfiguriert Docker so, dass der Container automatisch neu gestartet wird, es sei denn, er wurde explizit gestoppt.
+
+volumes:
+  data: # Definiert ein Docker Volume namens 'data' für die persistente Speicherung von Daten.
+  profiles: # Definiert ein Docker Volume namens 'profiles' für die optionale Speicherung von Profilen.
+  input: # Definiert ein Docker Volume namens 'input', das hier aber wahrscheinlich eher als Mount-Point für ein Host-Verzeichnis dient.
+  run: # Definiert ein Docker Volume namens 'run', das hier aber wahrscheinlich eher als Mount-Point für ein Host-Verzeichnis dient.
