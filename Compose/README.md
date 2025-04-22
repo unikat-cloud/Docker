@@ -41,7 +41,8 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | KitchenOwl.yml      | Rezept- und Einkaufslisten-Manager (KitchenOwl)        | Kochen, Organisation   | [kitchenowl-project/kitchenowl](https://www.google.com/search?q=https://github.com/kitchenowl-project/kitchenowl)              |
 | Docuseal.yml      | Dokumentenmanagement und digitale Signaturen (Docuseal)                                                                     | Dokumentenmanagement, Signatur | [docuseal/docuseal](https://github.com/docusealco/docuseal)                     |
 | OnlyOffice_Documentserver.yml | OnlyOffice Documentserver für die Online-Zusammenarbeit an Dokumenten | Cloud, Produktivität | [onlyoffice/documentserver](https://github.com/onlyoffice/documentserver) |
-| Kasm-Workspace.yml      | Remote Browser Isolation Platform (Kasm Workspace)                                                                | Remote, Browser            | [kasmtech/Kasm-Workspaces](https://www.google.com/search?q=https://github.com/kasmtech/Kasm-Workspaces)                                                 |
+| Kasm-Workspace.yml      | Remote Browser Isolation Platform (Kasm Workspace)                                                                | Remote, Browser            | [kasmtech/Kasm-Workspaces](https://www.google.com/search?q=https://github.com/kasmtech/Kasm-Workspaces) 
+| netboot.xyz.yml           | PXE-Boot-Server für Netzwerkinstallationen (netboot.xyz)                                          | Netzwerk, Tools        | [netbootxyz/netboot.xyz](https://github.com/netbootxyz/netboot.xyz)                                                        |                                                |
 ##  Verwendung mit Portainer
 
 Portainer ist eine intuitive, webbasierte Oberfläche zur Verwaltung von Docker-Umgebungen. Mit den Docker Compose Stacks in diesem Verzeichnis können Sie Anwendungen in Portainer mühelos bereitstellen.
