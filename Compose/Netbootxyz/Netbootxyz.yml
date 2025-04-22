@@ -1,0 +1,19 @@
+services:
+  netbootxyz:
+    image: lscr.io/linuxserver/netbootxyz # Offizielles Netboot.xyz Image
+    container_name: netbootxyz # Name des Containers
+    environment:
+      - PUID=${PUID:-1000} # User-ID im Container (optional)
+      - PGID=${PGID:-1000} # Gruppen-ID im Container (optional)
+      - TZ=Europe/Berlin # Zeitzone
+    volumes:
+      - config:/config # Persistenter Speicher für Konfiguration
+      - assets:/assets # Persistenter Speicher für Boot-Dateien
+    ports:
+      - 3000:3000 # Web-Interface Port
+      - 69:69/udp # TFTP Port für Netzwerkboot
+    restart: unless-stopped # Automatisch neu starten, außer manuell gestoppt
+
+volumes:
+    config: # Definiertes Volume für Konfiguration
+    assets: # Definiertes Volume für Boot-Dateien
