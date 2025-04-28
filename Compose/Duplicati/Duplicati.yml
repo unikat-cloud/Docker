@@ -1,0 +1,20 @@
+services:
+  duplicati:
+    image: duplicati/duplicati:latest # Verwendet das neueste Image von linuxserver.io
+    container_name: duplicati # Optional: Gibt dem Container einen festen Namen
+    
+    environment:
+      - TZ=Europe/Berlin # Setze deine Zeitzone (siehe https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)
+      - DUPLICATI__WEBSERVICE_PASSWORD=changeme # Password für Weblogin
+    volumes:
+      - duplicati-config:/config    # Pfad auf dem Host für die Duplicati-Konfiguration (Datenbanken, Job-Einstellungen)
+      - data:/source/data # Beispiel: Hänge das Host-Verzeichnis, das gesichert werden soll, in den Container ein
+      
+    ports:
+      - "8200:8200" # Mappt den Port 8200 des Containers auf Port 8200 des Hosts
+      
+    restart: unless-stopped # Startet den Container automatisch neu, außer er wurde manuell gestoppt
+
+volumes:
+  duplicati-config:
+  data:
