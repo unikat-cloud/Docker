@@ -1,6 +1,6 @@
 # Wiki: Docker Container
 
-## 1. [Einleitung](Einleitung/Einleitung.md)
+## 1. [Einleitung](Einleitung.md)
 - 1.1 Was sind Docker Container?
 - 1.2 Geschichte und Entwicklung von Docker
 - 1.3 Vorteile von Containern gegenüber herkömmlichen Virtual Machines
