@@ -19,7 +19,7 @@
   - Volumes
   - Netzwerke
 
-## 3. [Docker Installation](Docker%20Installation.md)
+## 3. [Docker Installation](Docker-Installation.md)
 - 3.1 Voraussetzungen
 - 3.2 Installationsanleitung für [Windows, macOS, Linux]
 - 3.3 Erste Schritte nach der Installation
