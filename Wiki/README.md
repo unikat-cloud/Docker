@@ -24,7 +24,7 @@
 - 3.2 Installationsanleitung für [Windows, macOS, Linux]
 - 3.3 Erste Schritte nach der Installation
 
-## 4. [Docker Container erstellen](Docker%20Container%20erstellen)
+## 4. [Docker Container erstellen](Docker-Container-erstellen.md)
 - 4.1 Docker Images
   - Was sind Images?
   - Wie erstelle ich ein eigenes Image?
