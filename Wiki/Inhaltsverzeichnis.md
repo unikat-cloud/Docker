@@ -75,8 +75,3 @@
 
 ## 12. Glossar
 - Erklärung wichtiger Begriffe
-
-## Anhang
-- Beispiel-Projekte
-- Script-Beispiele
-- FAQ
