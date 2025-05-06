@@ -38,3 +38,5 @@ Neben Volumes gibt es auch die Möglichkeit, Verzeichnisse oder Dateien vom Host
 - Nutzung spezieller Hardware oder Ressourcen des Hosts
 
 **Beispiel für einen Bind Mount:**
+
+- Dabei wird das Verzeichnis /pfad/auf/dem/host vom Host in den Container unter /pfad/im/container eingebunden.
