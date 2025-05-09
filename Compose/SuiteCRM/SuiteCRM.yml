@@ -1,0 +1,29 @@
+services: 
+  mariadb: # MariaDB-Datenbankdienst.
+    image: docker.io/bitnami/mariadb:latest # Verwendet das neueste Bitnami MariaDB Image. Wichtig für Datenbankversion.
+    environment: # Konfiguriert die Datenbank beim Start.
+      - MARIADB_USER=bn_suitecrm # Legt einen DB-Benutzer für SuiteCRM an.
+      - MARIADB_DATABASE=bitnami_suitecrm # Erstellt eine DB für SuiteCRM.
+      - MARIADB_PASSWORD=changeme1 # Passwort für den SuiteCRM-DB-Benutzer (WICHTIG & GEHEIM).
+      - MARIADB_ROOT_PASSWORD=changeme2 # Passwort für den DB-Root-Benutzer (SEHR WICHTIG & GEHEIM).
+    volumes:
+      - 'mariadb_data:/bitnami/mariadb' # Speichert DB-Daten persistent im Volume 'mariadb_data', damit sie bei Container-Neustarts erhalten bleiben (KRITISCH für Datenintegrität).
+
+  suitecrm: # SuiteCRM-Anwendungsdienst.
+    image: docker.io/bitnami/suitecrm:latest # Verwendet das neueste Bitnami SuiteCRM Image. Wichtig für Anwendungsversion.
+    ports:
+      - '60021:8080' # Macht SuiteCRM auf Host-Port 60021 erreichbar (intern läuft es auf 8080).
+    environment: # Konfiguriert SuiteCRM, v.a. DB-Verbindung.
+      - SUITECRM_DATABASE_HOST=mariadb # DB-Server ist der 'mariadb'-Dienst.
+      - SUITECRM_DATABASE_PORT_NUMBER=3306 # Standard-DB-Port.
+      - SUITECRM_DATABASE_USER=bn_suitecrm # DB-Benutzer (muss mit oben übereinstimmen).
+      - SUITECRM_DATABASE_NAME=bitnami_suitecrm # DB-Name (muss mit oben übereinstimmen).
+      - SUITECRM_DATABASE_PASSWORD=changeme1 # DB-Passwort (muss mit oben übereinstimmen - WICHTIG).
+    volumes:
+      - 'suitecrm_data:/bitnami/suitecrm' # Speichert SuiteCRM-Anwendungsdaten persistent im Volume 'suitecrm_data' (KRITISCH für Konfiguration, Uploads etc.).
+    depends_on:
+      - mariadb # Stellt sicher, dass 'mariadb' vor 'suitecrm' startet, da SuiteCRM die DB benötigt.
+
+volumes: # Definiert benannte Volumes für persistente Datenspeicherung.
+  mariadb_data:
+  suitecrm_data:
