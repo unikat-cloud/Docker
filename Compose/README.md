@@ -44,6 +44,7 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | Kasm-Workspace.yml      | Remote Browser Isolation Platform (Kasm Workspace)                                                                | Remote, Browser            | [kasmtech/Kasm-Workspaces](https://www.google.com/search?q=https://github.com/kasmtech/Kasm-Workspaces) 
 | netboot.xyz.yml           | PXE-Boot-Server für Netzwerkinstallationen (netboot.xyz)                                          | Netzwerk, Tools        | [netbootxyz/netboot.xyz](https://github.com/netbootxyz/netboot.xyz)                                                        |                                                |
 | Duplicati.yml             | Backup-Software für sichere Datensicherungen (Duplicati)                                                     | Backup, Tools            | [duplicati/duplicati](https://github.com/duplicati/duplicati)                                                              |
+| Suitecrm.yml              | Open-Source Customer Relationship Management (CRM) Software                                               | CRM, Sales, Open Source  | [salesagility/SuiteCRM](https://github.com/salesagility/SuiteCRM)                                                  |
 ##  Verwendung mit Portainer
 
 Portainer ist eine intuitive, webbasierte Oberfläche zur Verwaltung von Docker-Umgebungen. Mit den Docker Compose Stacks in diesem Verzeichnis können Sie Anwendungen in Portainer mühelos bereitstellen.
