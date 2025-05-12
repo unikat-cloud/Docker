@@ -1,0 +1,12 @@
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:latest # Verwendetes Docker Image
+    container_name: openwebui                      # Name des Containers
+    ports:
+      - "8080:8080"                             # Port-Mapping: Host 8080
+    volumes:
+      - open-webui:/app/backend/data             # Datenpersistenz: Volume für /app/backend/data (Daten bleiben erhalten)
+    restart: unless-stopped                      # Automatischer Neustart (außer manuell gestoppt)
+
+volumes:
+  open-webui:                                    # Definition des Volumes für Datenpersistenz
