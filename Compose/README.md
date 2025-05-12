@@ -45,6 +45,9 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | netboot.xyz.yml           | PXE-Boot-Server für Netzwerkinstallationen (netboot.xyz)                                          | Netzwerk, Tools        | [netbootxyz/netboot.xyz](https://github.com/netbootxyz/netboot.xyz)                                                        |                                                |
 | Duplicati.yml             | Backup-Software für sichere Datensicherungen (Duplicati)                                                     | Backup, Tools            | [duplicati/duplicati](https://github.com/duplicati/duplicati)                                                              |
 | Suitecrm.yml              | Open-Source Customer Relationship Management (CRM) Software                                               | CRM, Sales, Open Source  | [salesagility/SuiteCRM](https://github.com/salesagility/SuiteCRM)                                                  |
+| OpenWebUI.yml              | Benutzerfreundliche Web-Oberfläche für KI-Modelle (Open WebUI)                                | KI, Oberfläche          | [open-webui/open-webui](https://github.com/open-webui/open-webui)                                  |
+| Postiz.yml                  | Kostenloses, quelloffenes Tool zur Planung von Social-Media-Beiträgen mit KI-Funktionen | Social Media, Planung, KI | [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app) |
+
 ##  Verwendung mit Portainer
 
 Portainer ist eine intuitive, webbasierte Oberfläche zur Verwaltung von Docker-Umgebungen. Mit den Docker Compose Stacks in diesem Verzeichnis können Sie Anwendungen in Portainer mühelos bereitstellen.
