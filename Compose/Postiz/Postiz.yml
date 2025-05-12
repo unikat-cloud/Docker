@@ -1,0 +1,88 @@
+services:
+  postiz:
+    image: ghcr.io/gitroomhq/postiz-app:latest # Hauptanwendung: Postiz App
+    container_name: postiz
+    restart: always                            # Startet immer automatisch neu
+    environment:                               # WICHTIG: Umgebungsvariablen zur Konfiguration der App
+      # WICHTIG: Diese URLs MÜSSEN an Ihre Domain angepasst werden!
+      MAIN_URL: "https://postiz.example.de"
+      FRONTEND_URL: "https://postiz.example.de"
+      NEXT_PUBLIC_BACKEND_URL: "https://postiz.example.de/api"
+      JWT_SECRET: "Random 32 Key"              # WICHTIG: Diesen Secret-Key ZWINGEND ändern!
+      # Datenbank- und Redis-Verbindungen (Passwörter müssen mit denen der jeweiligen Dienste übereinstimmen)
+      DATABASE_URL: "postgresql://postiz-user:changeme1@postiz-postgres:5432/postiz-db-local"
+      REDIS_URL: "redis://postiz-redis:6379"
+      BACKEND_INTERNAL_URL: "http://localhost:3000" # Interne URL des Backends
+      IS_GENERAL: "true"                       # Für Self-Hosting erforderlich
+      DISABLE_REGISTRATION: "false"            # Registrierung nach der ersten Anmeldung deaktivieren
+      # Speicherpfade für Dateien (Standardeinstellungen sollten passen)
+      STORAGE_PROVIDER: "local"
+      UPLOAD_DIRECTORY: "/uploads"
+      NEXT_PUBLIC_UPLOAD_DIRECTORY: "/uploads"
+      TZ: Europe/Berlin                        # Zeitzone des Containers
+      OPENAI_API_KEY: api key                  # Optional: OpenAI API Key für KI-Funktionen
+      # SMTP-Einstellungen für E-Mail-Versand (falls E-Mail-Funktionen genutzt werden)
+      EMAIL_HOST: example.de
+      EMAIL_PORT: 465
+      EMAIL_SECURE: true
+      EMAIL_USER: no-reply@example.de
+      EMAIL_PASS: changeme2
+    volumes:
+      - postiz-config:/config/                 # Volume für Konfigurationsdateien (Persistenz)
+      - postiz-uploads:/uploads/               # Volume für hochgeladene Dateien (Persistenz)
+    ports:
+      - 5000:5000                              # Port-Mapping: Host 5000 -> Container 5000 (Zugriff auf die App)
+    networks:
+      - postiz-network                         # Gehört zum internen Docker-Netzwerk
+    depends_on:                                # Stellt sicher, dass die Datenbank und Redis bereit sind, bevor Postiz startet
+      postiz-postgres:
+        condition: service_healthy
+      postiz-redis:
+        condition: service_healthy
+
+  postiz-postgres:
+    image: postgres:17-alpine                  # PostgreSQL-Datenbankdienst
+    container_name: postiz-postgres
+    restart: always
+    environment:                               # Datenbank-Zugangsdaten (Passwort ZWINGEND ändern, muss mit Postiz übereinstimmen!)
+      POSTGRES_PASSWORD: changeme1
+      POSTGRES_USER: postiz-user
+      POSTGRES_DB: postiz-db-local
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data # Volume für persistente Datenbankdaten
+    networks:
+      - postiz-network
+    healthcheck:                               # Healthcheck um den Status der Datenbank zu prüfen
+      test: pg_isready -U postiz-user -d postiz-db-local
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  postiz-redis:
+    image: redis:latest                        # Redis-Dienst (für Caching, Sessions etc.)
+    container_name: postiz-redis
+    restart: always
+    healthcheck:                               # Healthcheck um den Status von Redis zu prüfen
+      test: redis-cli ping
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - postiz-redis-data:/data                # Volume für persistente Redis-Daten
+    networks:
+      - postiz-network
+
+
+volumes:                                     # Definition der persistenten Volumes für Daten
+  postgres-volume:
+    external: false
+  postiz-redis-data:
+    external: false
+  postiz-config:
+    external: false
+  postiz-uploads:
+    external: false
+
+networks:
+  postiz-network:                            # Definition des internen Docker-Netzwerks für die Dienste
+    external: false
