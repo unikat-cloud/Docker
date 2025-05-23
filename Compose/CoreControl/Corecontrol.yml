@@ -1,0 +1,51 @@
+services:
+  # Web-Anwendungsservice (Frontend/Backend der Hauptanwendung)
+  web:
+    image: haedlessdev/corecontrol:latest # Image für die Web-Anwendung
+    ports:
+      - "3000:3000" # Mappt Host-Port 3000 auf Container-Port 3000
+    environment:
+      JWT_SECRET: RANDOM_SECRET # WICHTIG: Geheimen Schlüssel ersetzen!
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres" # Verbindung zur Datenbank
+
+  # Agent-Service (Hintergrund-Prozesse der Hauptanwendung)
+  agent:
+    image: haedlessdev/corecontrol-agent:latest # Image für den Agent
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/postgres" # Verbindung zur Datenbank
+    depends_on:
+      db: # Stellt sicher, dass die Datenbank vor dem Agenten startet und bereit ist
+        condition: service_healthy
+
+  # Datenbank-Service (PostgreSQL)
+  db:
+    image: postgres:17 # PostgreSQL Datenbank Image
+    restart: always # Startet den Container immer neu bei einem Fehler
+    environment:
+      POSTGRES_USER: postgres # DB Benutzer
+      POSTGRES_PASSWORD: postgres # DB Passwort (WICHTIG: In Produktion ändern!)
+      POSTGRES_DB: postgres # Name der Datenbank
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Speichert DB-Daten persistent
+    healthcheck: # Überprüft den Zustand der Datenbank
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 2s
+      retries: 10
+
+  # Glances System-Überwachungsdienst
+  glances:
+    image: nicolargo/glances:latest # Image für Glances
+    container_name: glances
+    restart: unless-stopped # Startet neu, außer manuell gestoppt
+    ports:
+      - "61208:61208" # Mappt Host-Port 61208 für Glances Web UI/API
+    pid: "host" # Erlaubt Zugriff auf Host-Prozessinformationen
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Erlaubt Glances, Docker-Container-Infos zu lesen (read-only)
+    environment:
+      - GLANCES_OPT=-w --disable-webui # Startet Glances im Webserver-Modus, deaktiviert eine spezifische WebUI (API bleibt ggf. aktiv)
+
+# Definiert benannte Volumes für persistente Datenspeicherung
+volumes:
+  postgres_data: # Volume für die PostgreSQL-Daten
