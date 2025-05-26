@@ -1,0 +1,32 @@
+services:
+  ghost: # Definiert den Ghost-Blog-Dienst
+    image: ghost:latest # Verwendet das neueste offizielle Ghost-Image
+    restart: always # Startet den Container immer neu, falls er stoppt
+    ports:
+      - '2368:2368' # Mappt den Port 2368 des Hosts auf Port 2368 im Container (Standard-Ghost-Port)
+    environment:
+      url: https://ghost.example.de # WICHTIG: Die öffentliche URL deines Blogs. Muss angepasst werden!
+      database__client: mysql # Legt fest, dass MySQL als Datenbank verwendet wird
+      database__connection__host: mysql # Der Hostname des MySQL-Dienstes (siehe unten)
+      database__connection__user: ghost # Benutzername für die Datenbankverbindung
+      database__connection__password: changeme # WICHTIG: Passwort für den Datenbankbenutzer. Unbedingt ändern!
+      database__connection__database: ghostdb # Name der zu verwendenden Datenbank
+    volumes:
+      - ghost_content:/var/lib/ghost/content # Speichert die Ghost-Inhalte (Themes, Bilder, etc.) persistent in einem Volume
+    depends_on:
+      - mysql # Stellt sicher, dass der mysql-Dienst vor dem ghost-Dienst gestartet wird
+
+  mysql: # Definiert den MySQL-Datenbank-Dienst
+    image: mysql:5.7 # Verwendet das MySQL-Image in Version 5.7
+    restart: always # Startet den Container immer neu, falls er stoppt
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme2 # WICHTIG: Root-Passwort für MySQL. Unbedingt ändern!
+      MYSQL_DATABASE: ghostdb # Erstellt eine Datenbank namens 'ghostdb' beim ersten Start
+      MYSQL_USER: ghost # Erstellt einen Benutzer namens 'ghost'
+      MYSQL_PASSWORD: changeme # WICHTIG: Passwort für den MySQL-Benutzer 'ghost'. Muss mit dem Passwort im Ghost-Dienst übereinstimmen und unbedingt geändert werden!
+    volumes:
+      - mysql_data:/var/lib/mysql # Speichert die MySQL-Daten persistent in einem Volume
+
+volumes: # Definiert die benannten Volumes für persistente Datenspeicherung
+  ghost_content: # Volume für die Ghost-Inhalte
+  mysql_data: # Volume für die MySQL-Datenbankdateien
