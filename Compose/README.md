@@ -47,6 +47,7 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | Suitecrm.yml              | Open-Source Customer Relationship Management (CRM) Software                                               | CRM, Sales, Open Source  | [salesagility/SuiteCRM](https://github.com/salesagility/SuiteCRM)                                                  |
 | OpenWebUI.yml              | Benutzerfreundliche Web-Oberfläche für KI-Modelle (Open WebUI)                                | KI, Oberfläche          | [open-webui/open-webui](https://github.com/open-webui/open-webui)                                  |
 | Postiz.yml                  | Kostenloses, quelloffenes Tool zur Planung von Social-Media-Beiträgen mit KI-Funktionen | Social Media, Planung, KI | [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app) |
+| CoreControl.yml           | Dashboard zur Verwaltung Ihrer gesamten Serverinfrastruktur. Ermöglicht das Organisieren von Serverdaten, das Hinzufügen von selbstgehosteten Anwendungen mit Schnellzugriffslinks und die Überwachung deren Verfügbarkeit. | Dashboard, Verwaltung, Überwachung | [crocofied/CoreControl](https://github.com/crocofied/CoreControl)                                               |
 
 ##  Verwendung mit Portainer
 
