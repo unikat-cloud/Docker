@@ -5,7 +5,7 @@ services:
     ports:
       - "8000:8000" # Spoolman erreichbar über Port 8000 deines Hosts
     volumes:
-      - ./spoolman_data:/app/data # **Speichert Konfiguration persistent**
+      - spoolman_data:/app/data # **Speichert Konfiguration persistent**
     environment:
       # **Wichtig: Datenbankverbindung zu PostgreSQL herstellen**
       # Ersetze 'your_secure_password' mit einem SICHEREN Passwort!
@@ -24,5 +24,9 @@ services:
       - POSTGRES_USER=spoolman_user
       - POSTGRES_PASSWORD=your_secure_password
     volumes:
-      - ./db_data:/var/lib/postgresql/data # **Speichert Datenbankdaten persistent**
+      - db_data:/var/lib/postgresql/data # **Speichert Datenbankdaten persistent**
     restart: unless-stopped
+
+volumes:
+  spoolman_data:
+  db_data:
