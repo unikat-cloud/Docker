@@ -1,0 +1,61 @@
+services:
+  mongo:
+    image: mongo:6.0 # Consider using a specific version and keeping it updated
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+    command: --quiet --wiredTigerCacheSizeGB 0.25
+    restart: unless-stopped
+    logging:
+      driver: local
+    # ports:
+    #   - 27017:27017 # Uncomment to expose MongoDB to the host
+    volumes:
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: komodo # CHANGE THIS
+      MONGO_INITDB_ROOT_PASSWORD: changeme1 # CHANGE THIS PASSWORD!
+
+  core:
+    image: ghcr.io/moghtech/komodo-core:latest # Use a specific version for production
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    logging:
+      driver: local
+    ports:
+      - 9120:9120 # Required to access Komodo Core from outside Docker host
+    environment:
+      KOMODO_DATABASE_ADDRESS: mongo:27017
+      KOMODO_DATABASE_USERNAME: komodo # Must match MONGO_INITDB_ROOT_USERNAME, CHANGE THIS
+      KOMODO_DATABASE_PASSWORD: changeme1 # Must match MONGO_INITDB_ROOT_PASSWORD, CHANGE THIS PASSWORD!
+      # KOMODO_SOME_SETTING: "some_value" # Add more Komodo Core environment variables here
+    volumes:
+      - repo-cache:/repo-cache
+      - toml-config:/config
+      # - /path/on/host/to/syncs:/syncs # Uncomment to store sync files on the host
+      # - /path/on/host/to/core.config.toml:/config/config.toml # Uncomment to mount a custom core.config.toml
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  periphery:
+    image: ghcr.io/moghtech/komodo-periphery:latest # Use a specific version for production
+    labels:
+      komodo.skip: # Prevent Komodo from stopping with StopAllContainers
+    restart: unless-stopped
+    logging:
+      driver: local
+    # environment: # Add Periphery environment variables here if needed
+      # PERIPHERY_SOME_CONFIG: "value"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # CAUTION: Grants extended privileges!
+      - /proc:/proc # CAUTION: Can be security relevant!
+      - /etc/komodo:/etc/komodo # Change both sides if a different path is desired
+
+volumes:
+  mongo-data:
+  mongo-config:
+  repo-cache:
+  toml-config:
