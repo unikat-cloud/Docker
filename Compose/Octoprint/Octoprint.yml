@@ -1,0 +1,34 @@
+services:
+  octoprint:
+    image: octoprint/octoprint
+    restart: unless-stopped
+    ports:
+      - 80:80
+    # Uncomment and adjust for your printer's serial port (e.g., /dev/ttyACM0) and webcam (e.g., /dev/video0)
+    # devices:
+    #   - /dev/ttyACM0:/dev/ttyACM0
+    #   - /dev/video0:/dev/video0
+    volumes:
+      - octoprint:/octoprint
+    # Uncomment if you enable a video device for camera streaming
+    # environment:
+    #   - ENABLE_MJPG_STREAMER=true
+
+  # Uncomment the entire 'config-editor' block if you want to use a web-based code editor
+  # to modify OctoPrint's configuration files directly from your browser.
+  #config-editor:
+  #  image: linuxserver/code-server
+  #  ports:
+  #    - 8443:8443
+  #  depends_on:
+  #    - octoprint
+  #  restart: unless-stopped
+  #  environment:
+  #    - PUID=0
+  #    - PGID=0
+  #    - TZ=America/Chicago # IMPORTANT: Set your correct timezone here
+  #  volumes:
+  #    - octoprint:/octoprint
+
+volumes:
+  octoprint:
