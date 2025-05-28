@@ -49,6 +49,9 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | Postiz.yml                  | Kostenloses, quelloffenes Tool zur Planung von Social-Media-Beiträgen mit KI-Funktionen | Social Media, Planung, KI | [gitroomhq/postiz-app](https://github.com/gitroomhq/postiz-app) |
 | CoreControl.yml           | Dashboard zur Verwaltung Ihrer gesamten Serverinfrastruktur. Ermöglicht das Organisieren von Serverdaten, das Hinzufügen von selbstgehosteten Anwendungen mit Schnellzugriffslinks und die Überwachung deren Verfügbarkeit. | Dashboard, Verwaltung, Überwachung | [crocofied/CoreControl](https://github.com/crocofied/CoreControl)                                               |
 | Ghostboard.yml            | Leichtgewichtige, selbstgehostete Lösung für die gemeinsame Nutzung von Text in Echtzeit über Web oder CLI. | Textfreigabe, Echtzeit, Tools | [jon6fingrs/ghostboard](https://github.com/jon6fingrs/ghostboard)                                      |
+| Spoolman.yml | Filament-Managementsystem für 3D-Druck (Spoolman) | 3D-Druck, Verwaltung | [donkie/spoolman](https://www.google.com/search?q=https://github.com/donkie/spoolman) |
+| Octoprint.yml | Webinterface zur Steuerung und Überwachung von 3D-Druckern (OctoPrint) | 3D-Druck, Überwachung | [OctoPrint/OctoPrint](https://github.com/OctoPrint/OctoPrint) |
+| Komodo.yml | Tool zum Erstellen und Bereitstellen von Software auf mehreren Servern, inklusive Docker Container und Docker Compose Management | Docker, CI/CD, Verwaltung | [moghtech/komodo](https://github.com/moghtech/komodo) |
 
 ##  Verwendung mit Portainer
 
