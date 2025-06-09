@@ -1,0 +1,35 @@
+volumes:
+  wireguard: # Permanenter Speicher für WireGuard-Konfigurationen.
+
+services:
+  wg-easy:
+    image: ghcr.io/wg-easy/wg-easy:15 # Das verwendete wg-easy Image.
+    container_name: wg-easy # Eindeutiger Name für den Container.
+    networks:
+      wg: # Container ist in diesem Netzwerk.
+        ipv4_address: 10.42.42.42 # Feste IPv4 im internen Netzwerk.
+        ipv6_address: fdcc:ad94:bacf:61a3::2a # Feste IPv6 im internen Netzwerk.
+    volumes:
+      - wireguard:/etc/wireguard # Mountet persistenten Speicher für Konfigs.
+      - /lib/modules:/lib/modules:ro # Nötig für WireGuard Kernel-Module.
+    ports:
+      - "51820:51820/udp" # WireGuard VPN Port (UDP).
+      - "51821:51821/tcp" # wg-easy Webinterface Port (TCP).
+    restart: unless-stopped # Startet immer außer bei manuellem Stopp.
+    cap_add:
+      - NET_ADMIN # Erlaubt Netzwerk-Manipulationen (VPN-Funktion).
+      - SYS_MODULE # Erlaubt Laden von Kernel-Modulen.
+    sysctls:
+      - net.ipv4.ip_forward=1 # Aktiviert IPv4-Paketweiterleitung (VPN-Routing).
+      - net.ipv4.conf.all.src_valid_mark=1 # Wichtig für WireGuard-Routing.
+      - net.ipv6.conf.all.disable_ipv6=0 # Stellt IPv6 sicher.
+      - net.ipv6.conf.all.forwarding=1 # Aktiviert IPv6-Paketweiterleitung (VPN-Routing).
+
+networks:
+  wg: # Definition des VPN-Netzwerks.
+    driver: bridge # Standard-Netzwerktreiber.
+    enable_ipv6: true # Aktiviert IPv6 für dieses Netzwerk.
+    ipam:
+      config:
+        - subnet: 10.42.42.0/24 # IPv4-Adressbereich des VPN-Netzwerks.
+        - subnet: fdcc:ad94:bacf:61a3::/64 # IPv6-Adressbereich des VPN-Netzwerks.
