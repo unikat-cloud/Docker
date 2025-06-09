@@ -52,6 +52,8 @@ Hier ist eine Übersicht der verfügbaren Docker Compose Stacks in diesem Verzei
 | Spoolman.yml | Filament-Managementsystem für 3D-Druck (Spoolman) | 3D-Druck, Verwaltung | [donkie/spoolman](https://github.com/OctoPrint/OctoPrint) |
 | Octoprint.yml | Webinterface zur Steuerung und Überwachung von 3D-Druckern (OctoPrint) | 3D-Druck, Überwachung | [OctoPrint/OctoPrint](https://github.com/OctoPrint/OctoPrint) |
 | Komodo.yml | Tool zum Erstellen und Bereitstellen von Software auf mehreren Servern, inklusive Docker Container und Docker Compose Management | Docker, CI/CD, Verwaltung | [moghtech/komodo](https://github.com/moghtech/komodo) |
+| Easy-Wireguard.yml | Eine einfache Oberfläche zur Verwaltung von WireGuard-VPN-Konfigurationen | VPN, Tools | [wg-easy/wg-easy](https://github.com/wg-easy/wg-easy) |
+| Glance.yml | Ein selbstgehostetes Dashboard, das alle Ihre Feeds an einem Ort vereint (Glance) | Dashboard, RSS, Tools | [glanceapp/glance](https://github.com/glanceapp/glance) |
 
 ##  Verwendung mit Portainer
 
