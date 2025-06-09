@@ -38,4 +38,4 @@
 
 * Glance Dashboard ist **kostenlos und Open Source**.
 * Glance Dashboard bietet eine **Vielzahl von Funktionen**, die den Datenschutz und die Sicherheit der Nutzer respektieren.
-* Die **offizielle Webseite von Glance Dashboard ist (Platzhalter für Link, falls vorhanden)**. Dort finden Sie weitere Informationen, Downloads, Dokumentationen und die aktive Community.
+* Die **offizielle Webseite von Glance Dashboard ist (https://github.com/glanceapp/glance)**. Dort finden Sie weitere Informationen, Downloads, Dokumentationen und die aktive Community.
