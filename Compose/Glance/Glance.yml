@@ -1,0 +1,12 @@
+services:
+  glance:
+    container_name: glance-dashboard # Container-Name.
+    image: glanceapp/glance # Das Docker-Image.
+    restart: unless-stopped # Startet immer außer bei manuellem Stopp.
+    volumes:
+      - config:/app/config # Permanenter Speicher für Konfiguration.
+    ports:
+      - 8080:8080 # App ist über Port 8080 erreichbar.
+
+volumes:
+  config: # Definiert das Volume für die Konfiguration.
