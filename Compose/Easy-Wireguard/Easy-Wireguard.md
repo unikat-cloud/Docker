@@ -4,8 +4,6 @@
 
 **Was ist Easy Wireguard?**
 
-Ähnlich wie Kdenlive im Bereich der Videobearbeitung setzt auch Easy Wireguard auf folgende Grundprinzipien:
-
 * **Datenschutzorientiertes Arbeiten:** Easy Wireguard respektiert Ihre Privatsphäre. Da es sich um Open-Source-Software handelt, ist der Quellcode transparent und nachvollziehbar. Es werden keine unnötigen Daten gesammelt oder weitergegeben. Ihre Online-Aktivitäten bleiben Ihre eigenen.
 * **Leistung und Effizienz:** Easy Wireguard ist darauf ausgelegt, schnelle und stabile VPN-Verbindungen zu ermöglichen. Es nutzt moderne Kryptografie und Protokolle für maximale Performance.
 * **Kostenlos und Open Source:** Easy Wireguard ist für jeden frei verfügbar und kann ohne Lizenzgebühren genutzt werden. Die Open-Source-Natur ermöglicht eine aktive Community, die zur Weiterentwicklung beiträgt und bei Fragen unterstützt.
